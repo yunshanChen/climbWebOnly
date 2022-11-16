@@ -1,0 +1,37 @@
+:root {
+  --bg-gray: rgba(0, 0, 0, 0.13);
+  --bg-gray-light: rgba(0, 0, 0, 0.03);
+  --bg-card: #fff;
+  --bg-card-title: rgb(90, 71, 170);
+  --border-gray: rgba(0, 0, 0, 0.175);
+  --border-divider: rgba(0, 0, 0, 0.4);
+  --btn-blue: #0d6dfddb;
+  --btn-blue-hover: #0b5ed7;
+  --btn-red: #dc3546d5;
+  --btn-red-hover: #bb2d3b;
+  --btn-green: #198754d5;
+  --btn-green-hover: #157347;
+}
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(236, 237, 246);
+  color: #fff;
+}
+button,
+.link-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 0.357rem;
+}
+/* 顯示於否 */
+.none {
+  display: none !important;
+}

@@ -1,0 +1,17 @@
+.card {
+  border: 1px solid var(--border-gray);
+  border-radius: 0.357rem;
+  margin: 20px auto;
+  background-color: var(--bg-card);
+  color: #000;
+}
+.card .card-top {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--border-gray);
+  font-weight: normal;
+  background-color: var(--bg-card-title);
+  color: #fff;
+}
+.card .card-top .card-title {
+  font-size: 32px;
+}

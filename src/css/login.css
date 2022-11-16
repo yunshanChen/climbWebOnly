@@ -1,0 +1,49 @@
+/* section : login-card */
+.login-card {
+  width: 100%;
+}
+.login-card .card {
+  width: 50%;
+}
+.login-card .card form {
+  padding: 5px 20px;
+}
+.login-card .card form .input-group {
+  display: flex;
+  margin: 10px 0;
+  font-size: 20px;
+}
+.login-card .card form .input-group label {
+  padding: 5px 10px;
+  border: 1px solid var(--border-gray);
+  border-right: 0px;
+  border-radius: 0.357rem 0 0 0.357rem;
+  background-color: var(--bg-gray-light);
+}
+.login-card .card form .input-group input {
+  border: 1px solid var(--border-gray);
+  border-radius: 0 0.357rem 0.357rem 0;
+  flex-grow: 1;
+  text-indent: 1rem;
+}
+.login-card .card form .submit {
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  background-color: var(--btn-blue);
+  font-size: 20px;
+  color: #fff;
+}
+.login-card .card form .submit:hover {
+  background-color: var(--btn-blue-hover);
+  cursor: pointer;
+}
+/* RWD */
+@media screen and (max-width: 992px) {
+  .login-card .card .card-title {
+    font-size: 22px;
+  }
+  .login-card .card {
+    width: 95%;
+  }
+}

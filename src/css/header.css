@@ -1,0 +1,44 @@
+/* header */
+header {
+  width: 100%;
+  background-color: rgb(90, 71, 170);
+}
+header .navbar {
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
+  border-bottom: 1px solid #fff;
+}
+header .navbar .title {
+  font-size: 36px;
+  color: #fff;
+}
+header .navbar .navbar-list {
+  display: flex;
+  margin-left: auto;
+  padding: 0 10px;
+}
+header .navbar .navbar-list .nav-item {
+  padding: 0 10px;
+}
+header .navbar .navbar-list .nav-item a {
+  color: #fff;
+}
+header .navbar .btn-logout {
+  color: #fff;
+  background-color: var(--btn-red);
+}
+header .navbar .btn-logout:hover {
+  background-color: var(--btn-red-hover);
+  cursor: pointer;
+}
+@media screen and (max-width: 992px) {
+  /* 爬梯機系統 */
+  header .navbar .title {
+    font-size: 24px;
+  }
+  /* navbar選項 */
+  header .navbar .navbar-list .nav-item a {
+    font-size: 14px;
+  }
+}

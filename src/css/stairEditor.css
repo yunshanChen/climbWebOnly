@@ -1,0 +1,229 @@
+/* section : stair-editor */
+.stair-editor {
+  display: flex;
+}
+/* card-txt */
+.stair-editor .card .card-txt {
+  padding: 0px 10px;
+}
+/* form */
+/* .stair-editor-basic */
+.stair-editor-basic {
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.stair-editor-basic::after {
+  content: "";
+  width: 100%;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  border-bottom: 1px solid var(--border-divider);
+}
+.stair-editor-basic .input-group {
+  display: flex;
+  margin: 10px 0;
+  font-size: 20px;
+}
+.stair-editor-basic .input-group:not(:last-child) {
+  margin-right: 10px;
+}
+.stair-editor-basic .input-group label {
+  text-align: center;
+  padding: 5px 10px;
+  border: 1px solid var(--bg-gray);
+  border-right: 0px;
+  border-radius: 0.357rem 0 0 0.357rem;
+  background-color: var(--bg-gray-light);
+}
+.stair-editor-basic .input-group input {
+  border: 1px solid var(--bg-gray);
+  border-radius: 0 0.357rem 0.357rem 0;
+  text-indent: 1rem;
+}
+.stair-editor-basic .input-group.floor input {
+  border-radius: 0;
+}
+.stair-editor-basic .input-group.floor .input-group-text-last {
+  border-radius: 0 0.357rem 0.357rem 0;
+  border-left: 0px;
+  border-right: 1px solid var(--bg-gray);
+}
+.stair-editor-basic .input-group.address {
+  width: 100%;
+}
+.stair-editor-basic .input-group.address input {
+  flex-grow: 1;
+}
+/* floor-editor */
+.floor-editor {
+  margin-bottom: 10px;
+}
+.floor-editor::after {
+  content: "";
+  display: block;
+  width: 100%;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  border-bottom: 1px solid var(--border-divider);
+}
+/* floor-editor */
+/* special-floor-buttons */
+.floor-editor .special-floor-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.floor-editor .special-floor-buttons .have-special-floor {
+  border: 1px solid var(--btn-red);
+  background-color: #fff;
+  color: var(--btn-red);
+}
+.floor-editor .special-floor-buttons .have-special-floor:hover {
+  background-color: var(--btn-red);
+  color: #fff;
+  cursor: pointer;
+}
+.floor-editor .special-floor-buttons .no-special-floor {
+  border: 1px solid var(--btn-blue);
+  background-color: #fff;
+  color: var(--btn-blue);
+}
+.floor-editor .special-floor-buttons .no-special-floor:hover {
+  background-color: var(--btn-blue);
+  color: #fff;
+  cursor: pointer;
+}
+/* floor-editor */
+/*  tables */
+.floor-editor .tables {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.floor-editor .tables .floor-editor-table {
+  border: 2px solid #000;
+  border-collapse: collapse;
+  margin: 10px 5px;
+}
+.floor-editor .tables thead th,
+.floor-editor .tables tbody tr.turn-platform th {
+  padding: 5px;
+}
+.floor-editor .tables th,
+.floor-editor .tables td {
+  border: 1px solid var(--border-gray);
+}
+.floor-editor .tables tbody tr:not(.turn-platform) th,
+.floor-editor .tables tbody td {
+  padding: 10px 5px;
+}
+.floor-editor .tables .turn-platform {
+  background-color: var(--border-gray);
+}
+.floor-editor .tables .delete {
+  text-align: left;
+}
+.floor-editor .tables .delete .btn-delete {
+  margin-right: auto;
+  background-color: var(--btn-red);
+  color: #fff;
+}
+.floor-editor .tables .delete .btn-delete:hover {
+  background-color: var(--btn-red-hover);
+  cursor: pointer;
+}
+.floor-editor .tables thead tr th.floor-step {
+  width: 5rem;
+}
+.floor-editor .tables thead tr th.step-width {
+  width: 6rem;
+}
+.floor-editor .tables thead tr th.step-height {
+  width: 6rem;
+}
+.floor-editor .tables thead tr th.step-hypotenuse {
+  width: 7rem;
+}
+.floor-editor .tables thead tr th.step-inclination {
+  width: 5rem;
+}
+.floor-editor .tables thead tr th.step-depth {
+  width: 5rem;
+}
+/* floor-editor */
+/* input */
+.floor-editor .tables .input-group-table {
+  text-align: center;
+}
+.floor-editor .tables input {
+  width: 90%;
+  padding: 5px 0;
+}
+/* floor-editor */
+/* floor-editor-add */
+.floor-editor .floor-editor-add {
+  margin-bottom: 10px;
+}
+.floor-editor .floor-editor-add .add-floor {
+  display: block;
+  margin-left: auto;
+  border: 1px solid var(--btn-blue);
+  background-color: #fff;
+  color: var(--btn-blue);
+}
+.floor-editor .floor-editor-add .add-floor:hover {
+  background-color: var(--btn-blue);
+  color: #fff;
+  cursor: pointer;
+}
+/* form */
+/* .other-editor */
+.other-editor {
+  border: 1px solid var(--border-gray);
+  margin-bottom: 10px;
+}
+.other-editor .check-group {
+  padding: 5px 10px;
+}
+.other-editor .check-group:not(:last-child) {
+  border-bottom: 1px solid var(--border-gray);
+}
+.other-editor .check-group .form-check-label {
+  display: inline-block;
+}
+/* form */
+/* .stair-editor-buttons */
+.stair-editor-buttons {
+  margin-bottom: 10px;
+}
+.stair-editor-buttons .save-stair-editor {
+  display: block;
+  margin-left: auto;
+  background-color: var(--btn-blue);
+  color: #fff;
+}
+.stair-editor-buttons .save-stair-editor:hover {
+  background-color: var(--btn-blue-hover);
+  cursor: pointer;
+}
+
+/* RWD */
+@media screen and (max-width: 992px) {
+  /* .stair-editor .card-title */
+  .stair-editor .card .card-title {
+    font-size: 22px;
+  }
+  .stair-editor-basic .input-group label {
+    font-size: 16px;
+  }
+  /* .tables */
+  .floor-editor .tables .floor-editor-table {
+    font-size: 14px;
+  }
+  /* .table-title */
+  .floor-editor .tables .floor-editor-table .table-title {
+    display: block;
+  }
+}

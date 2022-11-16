@@ -1,0 +1,252 @@
+/* section */
+section.print,
+section.no-print {
+  width: 21cm;
+  margin: auto;
+}
+section.print {
+  height: 29.7cm;
+  padding: 1cm;
+  background-color: #fff;
+  color: #000;
+}
+/* .result-buttons */
+.result-buttons .back-to-stair-info {
+  padding: 5px 10px;
+  border-radius: 0.357rem;
+  margin: 10px 0;
+  display: inline-block;
+  font-size: 20px;
+  background-color: var(--btn-blue);
+  color: #fff;
+}
+.result-buttons .back-to-stair-info:hover {
+  background-color: var(--btn-blue-hover);
+  cursor: pointer;
+}
+.result-buttons .print-PDF {
+  margin: 10px 10px;
+  font-size: 20px;
+  background-color: var(--btn-red);
+  color: #fff;
+}
+.result-buttons .print-PDF:hover {
+  background-color: var(--btn-red-hover);
+  cursor: pointer;
+}
+/* section : stair-preview */
+section.stair-preview {
+  border: 1px solid var(--border-gray);
+  box-sizing: border-box;
+}
+.tables-page .preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 12px;
+}
+.tables-page .preview-table th,
+.tables-page .preview-table td {
+  padding: 2px;
+  border: 1px solid var(--border-gray);
+}
+.tables-page .preview-table .table-title {
+  display: block;
+}
+.tables-page .preview-table .border-double-r,
+.tables-page .preview-table tbody tr th:first-child {
+  border-right: 3px double #000;
+  box-sizing: border-box;
+}
+.tables-page .preview-table tr th:first-child,
+.tables-page .preview-table tr td:first-child {
+  border-left: 2px solid #000;
+  box-sizing: border-box;
+}
+.tables-page .preview-table thead tr th:last-child,
+.tables-page .preview-table tfoot tr td:last-child,
+.tables-page .preview-table tbody .border-r {
+  border-right: 2px solid #000;
+  box-sizing: border-box;
+}
+.tables-page .preview-table .border-b {
+  border-bottom: 2px solid #000;
+  box-sizing: border-box;
+}
+/* thead */
+.tables-page .preview-table thead tr:first-child th {
+  border-top: 2px solid #000;
+  box-sizing: border-box;
+}
+.tables-page .preview-table thead tr:nth-child(1),
+.tables-page .preview-table thead tr:nth-child(2) {
+  font-size: 14px;
+}
+.tables-page .preview-table thead .form-version {
+  text-align: right;
+  font-size: 10px;
+}
+.tables-page .preview-table thead .floor-name-tr {
+  border-top: 2px solid #000;
+}
+.tables-page .preview-table thead .floor-name {
+  background-color: var(--bg-gray);
+}
+/* tbody */
+.tables-page .preview-table tbody td.first-step {
+  padding: 0;
+}
+.tables-page .preview-table tbody td.first-step .first-step-border {
+  height: 21px;
+  border: 2px solid #000;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+.tables-page .preview-table tbody .cross {
+  padding: 0;
+}
+.tables-page .preview-table tbody .cross .cross-line {
+  width: 100%;
+  height: 21px;
+  background-color: #000;
+  clip-path: polygon(90% 0, 100% 0, 10% 100%, 0 100%);
+}
+.tables-page .preview-table tr:last-child th,
+.tables-page .preview-table tr:last-child td {
+  border-bottom: 2px solid #000;
+  box-sizing: border-box;
+}
+/* tfoot */
+.tables-page .preview-table tfoot {
+  text-align: left;
+}
+.tables-page .preview-table .img-cover {
+  height: 16px;
+}
+.tables-page .preview-table .img-cover img {
+  height: 100%;
+  object-fit: contain;
+}
+/* section.suitable-climber */
+section.suitable-climber {
+  border: 1px solid var(--border-gray);
+  box-sizing: border-box;
+}
+.suitable-climber .title {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+.suitable-climber .say-hello {
+  font-size: 18px;
+}
+.suitable-climber .say-hello .case-name {
+  margin: 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.suitable-climber .suitable-txt {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+/* table .suitable-table*/
+.suitable-climber .suitable-table {
+  font-size: 14px;
+  border: 1px solid var(--border-gray);
+  border-collapse: collapse;
+  text-align: left;
+}
+.suitable-climber .suitable-table th,
+.suitable-climber .suitable-table td {
+  padding: 5px;
+}
+.suitable-climber .suitable-table thead .table-climbers {
+  width: 6cm;
+}
+.suitable-climber .suitable-table thead .table-ATcenter {
+  width: 2cm;
+}
+.suitable-climber .suitable-table thead .table-climber-business-single {
+  width: 7cm;
+}
+.suitable-climber .suitable-table thead .table-climber-business-month {
+  width: 4cm;
+}
+.suitable-climber .suitable-table thead tr {
+  background-color: var(--bg-gray);
+}
+.suitable-climber .suitable-table tbody tr {
+  height: 80px;
+}
+.suitable-climber .suitable-table tbody tr:nth-child(even) {
+  background-color: var(--bg-gray);
+}
+.suitable-climber .suitable-table thead tr th:nth-child(2),
+.suitable-climber .suitable-table tbody tr td:nth-child(2) {
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+}
+.suitable-climber .suitable-table thead tr th:nth-child(3),
+.suitable-climber .suitable-table tbody tr td:nth-child(3) {
+  border-right: 2px solid #000;
+}
+.suitable-climber .suitable-table tbody tr td:nth-child(1) {
+  font-size: 16px;
+}
+
+/* result-txt */
+.suitable-climber .result-txt .measurement-error {
+  margin: 20px 0;
+  font-size: 14px;
+}
+.suitable-climber .result-txt .stair-todo .todo-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.suitable-climber .result-txt .stair-todo .todo {
+  display: flex;
+  margin-bottom: 20px;
+}
+.suitable-climber .result-txt .stair-todo .todo-list {
+  font-size: 14px;
+}
+.suitable-climber .result-txt .stair-todo .what-todo {
+  font-size: 12px;
+}
+.suitable-climber .result-txt .stair-todo .todo .QRcode {
+  width: 2.5cm;
+  margin-left: auto;
+}
+.suitable-climber .result-txt .stair-todo .todo .QRcode img {
+  width: 100%;
+}
+
+/* print */
+@media print {
+  @page {
+    margin: 0;
+    size: A4 portrait;
+  }
+  body {
+    /* 印出背景色 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .no-print {
+    display: none;
+  }
+  section.print {
+    /* margin: 1cm; */
+    border: none;
+    /* 強迫換頁 */
+    page-break-after: always; /* fallback */
+    break-after: page;
+  }
+  /* 最後一個section不用換頁 */
+  section.print:last-child {
+    page-break-after: auto; /* fallback */
+    break-after: auto;
+  }
+}
