@@ -9,11 +9,11 @@ function PwdModify() {
       <div className="card-txt">
         <form action="#">
           <div className="input-group">
-            <label for="user-name"> 新密碼 </label>
+            <label htmlFor="user-name"> 新密碼 </label>
             <input type="password" id="user-name" placeholder="請輸入新密碼" />
           </div>
           <div className="input-group">
-            <label for="password"> 再次輸入密碼 </label>
+            <label htmlFor="password"> 再次輸入密碼 </label>
             <input type="password" id="password" placeholder="請再次輸入密碼" />
           </div>
           <button className="submit">送出</button>

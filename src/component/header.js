@@ -4,7 +4,7 @@ import "../css/header.css";
 
 function Header() {
   return (
-    <header>
+    <header className="no-print">
       <nav className="navbar">
         <h1>
           <Link to="/" className="title">

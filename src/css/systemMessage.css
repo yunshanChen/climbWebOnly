@@ -45,20 +45,13 @@
 .system-message .card .card-txt .message-txt .message-list {
   padding: 10px 0;
 }
-.system-message .card .card-txt button.ok {
-  display: block;
-  margin: 20px 0 0 auto;
-  font-size: 20px;
-  background-color: var(--btn-blue);
-  color: #fff;
-}
-.system-message .card .card-txt button.ok:hover {
-  background-color: var(--btn-blue-hover);
-}
 
 /* .message-buttons */
 .message-buttons {
   display: flex;
+}
+.message-buttons button a {
+  color: #fff;
 }
 .message-buttons .show-print-preview {
   margin-left: auto;
@@ -69,16 +62,21 @@
   background-color: var(--btn-green-hover);
   cursor: pointer;
 }
-/* 暫時的超連結 */
-.message-buttons .show-print-preview a {
-  color: #fff;
-}
 .message-buttons .back-to-stair-editor {
   margin-left: 10px;
   background-color: var(--btn-blue);
   color: #fff;
 }
 .message-buttons .back-to-stair-editor:hover {
+  background-color: var(--btn-blue-hover);
+  cursor: pointer;
+}
+.message-buttons .ok {
+  margin-left: auto;
+  background-color: var(--btn-blue);
+  color: #fff;
+}
+.message-buttons .ok:hover {
   background-color: var(--btn-blue-hover);
   cursor: pointer;
 }

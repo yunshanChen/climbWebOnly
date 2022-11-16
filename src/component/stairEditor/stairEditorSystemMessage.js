@@ -16,12 +16,19 @@ function StairEditorSystemMessage(props) {
       />
     );
   }
+
   return (
     <section className={systemMessageClass}>
       <div className="card message">
         <div className="card-top">
           <h2 className="card-title">系統訊息</h2>
-          <button className="close">X</button>
+          <button
+            type="button"
+            className="close"
+            onClick={props.closeMessageCardClick}
+          >
+            X
+          </button>
         </div>
         <div className="card-txt">
           <div className="message-txt">
@@ -33,13 +40,33 @@ function StairEditorSystemMessage(props) {
             <ul className="message-list">{messageList}</ul>
           </div>
           <div className="message-buttons">
-            {/* 預覽列印和回樓梯表單只有在StairEditor才出現 */}
-            <button className="show-print-preview">
+            <button
+              type="button"
+              className={
+                props.submitMessage.isSubmitSuccess
+                  ? "show-print-preview"
+                  : "show-print-preview none"
+              }
+            >
               <Link to="/stairPreview">預覽列印</Link>
             </button>
-            <button className="back-to-stair-editor">回樓梯表單</button>
-            {/* 確定按鈕只在修改密碼及樓梯列表出現 */}
-            {/* <button className="ok">確定</button> */}
+            <button
+              type="button"
+              className={
+                props.submitMessage.isSubmitSuccess
+                  ? "back-to-stair-editor"
+                  : "back-to-stair-editor none"
+              }
+            >
+              <Link to="/stairList">回樓梯表單</Link>
+            </button>
+            <button
+              type="button"
+              className={props.submitMessage.isSubmitSuccess ? "ok none" : "ok"}
+              onClick={props.closeMessageCardClick}
+            >
+              確認
+            </button>
           </div>
         </div>
       </div>

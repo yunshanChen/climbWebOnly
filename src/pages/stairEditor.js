@@ -119,6 +119,7 @@ function StairEditor() {
                 stepName: "1",
                 stepWidth: "",
                 stepHeight: "",
+                isStepHeightOver: false,
               },
             ],
             otherStepInfo: [
@@ -483,6 +484,7 @@ function StairEditor() {
             stepName: "1",
             stepWidth: "",
             stepHeight: "",
+            isStepHeightOver: false,
           },
         ],
         otherStepInfo: [
@@ -511,18 +513,19 @@ function StairEditor() {
     setFloorTableInfo(newFloorTableInfo);
   }
 
-  //submitHandler
+  //儲存(submitMessage)的預設state
   const [submitMessage, setSubmitMessage] = useState({
     isSubmit: false,
     isSubmitSuccess: undefined,
     message: [],
   });
+  //submitHandler
   function submitHandler(e) {
     //防止按下Enter自動submit
     e.preventDefault();
   }
   function handleSubmitClick() {
-    console.log("onClick!");
+    // console.log("onClick!");
     // 複製原有的資料
     let newSubmitMessage = structuredClone(submitMessage);
 
@@ -591,11 +594,11 @@ function StairEditor() {
               "的上半層第二階斜邊長(f2)必須有值"
           );
         }
-        //遍歷其他階
-        //若某階b有值，則f也必有值，反之亦然
-        //如果是1.5層就沒有下半層
+
+        //遍歷上下半層
+        //如果是沒有下半層(ex. 1.5F~2F，上半層超過１５階)
         let upDownList = [];
-        if (floorTableInfo.floorInfo[i].floorName === "1.5F ↹ 2F") {
+        if (floorTableInfo.floorInfo[i]["floorDownStep"] === undefined) {
           upDownList = ["floorUpStep"];
         } else {
           upDownList = ["floorUpStep", "floorDownStep"];
@@ -608,7 +611,8 @@ function StairEditor() {
           } else {
             upDownName = "下半層";
           }
-
+          //遍歷其他階
+          //若某階b有值，則f也必有值，反之亦然
           for (
             let k = 1;
             k < floorTableInfo.floorInfo[i][upDownList[j]].otherStepInfo.length;
@@ -651,8 +655,44 @@ function StairEditor() {
               );
             }
           }
+          //每個上/下半層都有一個迴轉平台
+          let g1 =
+            floorTableInfo.floorInfo[i][upDownList[j]].turnPlatform[0].g1;
+          let g2 =
+            floorTableInfo.floorInfo[i][upDownList[j]].turnPlatform[0].g2;
+          let g3g4 =
+            floorTableInfo.floorInfo[i][upDownList[j]].turnPlatform[0].g3g4;
+          let g3 =
+            floorTableInfo.floorInfo[i][upDownList[j]].turnPlatform[0].g3;
+          let g4 =
+            floorTableInfo.floorInfo[i][upDownList[j]].turnPlatform[0].g4;
+          //沒有值都是undefined, undefined to boolean is false
+          //有值為true (0也是false)
+          if (
+            (g1 && g2 && g3g4 && !g3 && !g4) ||
+            (g1 && g2 && !g3g4 && g3 && g4) ||
+            (!g1 && !g2 && !g3g4 && !g3 && !g4) ||
+            (g1 && !g2 && !g3g4 && g3 && !g4)
+          ) {
+            //可接受的形式
+            // console.log("迴轉平台判斷成功 ");
+          } else {
+            newSubmitMessage.isSubmitSuccess = false;
+            newSubmitMessage.message.push(
+              floorTableInfo.floorInfo[i].floorName +
+                "的" +
+                upDownName +
+                "迴轉平台錯誤！"
+            );
+            // console.log("迴轉平台錯誤 ");
+          }
         }
       }
+    }
+    //其他資料不防呆
+    //如果以上判斷都正確，則newSubmitMessage.isSubmitSuccess = undefined;
+    if (newSubmitMessage.isSubmitSuccess === undefined) {
+      newSubmitMessage.isSubmitSuccess = true;
     }
 
     //顯示系統訊息
@@ -660,7 +700,14 @@ function StairEditor() {
 
     setSubmitMessage(newSubmitMessage);
     console.log(newSubmitMessage);
-    console.log(floorTableInfo);
+  }
+  function closeMessageCardClick() {
+    let initialSubmitMessage = {
+      isSubmit: false,
+      isSubmitSuccess: undefined,
+      message: [],
+    };
+    setSubmitMessage(initialSubmitMessage);
   }
   return (
     <>
@@ -700,7 +747,10 @@ function StairEditor() {
           </div>
         </section>
       </main>
-      <StairEditorSystemMessage submitMessage={submitMessage} />
+      <StairEditorSystemMessage
+        submitMessage={submitMessage}
+        closeMessageCardClick={closeMessageCardClick}
+      />
     </>
   );
 }
