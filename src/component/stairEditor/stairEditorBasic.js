@@ -21,6 +21,7 @@ function StairEditorBasic(props) {
         </label>
         <input
           type="number"
+          inputMode="decimal"
           id="body-weight"
           placeholder="體重"
           value={props.stairBasicInfo.bodyWeight}
@@ -33,6 +34,7 @@ function StairEditorBasic(props) {
         </label>
         <input
           type="number"
+          inputMode="numeric"
           id="floor"
           placeholder="樓層數"
           min="2"

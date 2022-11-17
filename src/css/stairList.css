@@ -10,16 +10,16 @@
 }
 .stairs .card form .input-group input {
   border: 1px solid var(--border-gray);
-  border-radius: 0.357rem 0 0 0.357rem;
+  border-left: 0px;
+  border-radius: 0 0.357rem 0.357rem 0;
   /* flex-grow: 1; */
   text-indent: 1rem;
 }
-.stairs .card form .input-group .submit {
+.stairs .card form .input-group .search-txt {
   text-align: center;
   padding: 5px 10px;
   border: 1px solid var(--border-gray);
-  border-left: 0px;
-  border-radius: 0 0.357rem 0.357rem 0;
+  border-radius: 0.357rem 0 0 0.357rem;
   background-color: var(--bg-gray-light);
 }
 .stairs .card .card-txt {

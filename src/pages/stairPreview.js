@@ -15,6 +15,7 @@ function StairPreview() {
   };
   //表格資料
   const floorTableInfo = {
+    judgeVersion: "新北市輔具資源中心1111020版",
     floorNumber: "7",
     floorInfo: [
       {
@@ -492,7 +493,47 @@ function StairPreview() {
     stepDeep: true,
     stepSpecial: false,
   };
-
+  //適用機型資料
+  const suitableClimbers = [
+    {
+      climbName: "翔鎰/天創行電動爬梯椅(座椅式)",
+      ATcenter: "無",
+      businessForSingle:
+        "益百利、北台灣、優遊小客車、芯願、振生、福倫交通、生通、樂活協會、好爸爸、大立亨、安欣、第一、小驢駒、大心、康健、平安好行",
+      businessForMonth:
+        "益百利、北台灣、優遊小客車、芯願、振生、福倫交通、樂活協會、安欣、第一",
+    },
+    {
+      climbName: "弘采SC-5(座椅式)",
+      ATcenter: "可月租",
+      businessForSingle: "益百利、車福、多扶接送、喜多移動",
+      businessForMonth: "益百利、車福、弘采介護",
+    },
+    {
+      climbName: "元倫ASC-120B(座椅式)",
+      ATcenter: "可月租",
+      businessForSingle: "高森能源",
+      businessForMonth: "高森能源",
+    },
+    {
+      climbName: "弘采SA-S(輪椅式)",
+      ATcenter: "可月租",
+      businessForSingle: "無",
+      businessForMonth: "弘采介護",
+    },
+    {
+      climbName: "元倫ASC-130B(輪椅式)",
+      ATcenter: "無",
+      businessForSingle: "高森能源",
+      businessForMonth: "高森能源",
+    },
+    {
+      climbName: "天群S-max sella(撐桿式)",
+      ATcenter: "無",
+      businessForSingle: "益百利、北台灣、振生、福倫交通、安欣、平安好行",
+      businessForMonth: "振生、福倫交通",
+    },
+  ];
   //需要印出的頁數為 樓層數(長度)/2無條件進位
   let printPageNumber = Math.round(floorTableInfo.floorInfo.length / 2);
   //要印出來的表格至少會有第一頁
@@ -500,6 +541,7 @@ function StairPreview() {
     <PreviewTableFirstPage
       stairBasicInfo={stairBasicInfo}
       floorNumber={floorTableInfo.floorNumber}
+      judgeVersion={floorTableInfo.judgeVersion}
       floorInfoFirstFloor={floorTableInfo.floorInfo[0]}
       floorInfoSecondFloor={floorTableInfo.floorInfo[1]}
       otherQuestionInfo={otherQuestionInfo}
@@ -527,7 +569,7 @@ function StairPreview() {
         </button>
       </section>
       {previewTable}
-      <SuitableClimber />
+      <SuitableClimber suitableClimbers={suitableClimbers} />
     </main>
   );
 }

@@ -61,8 +61,6 @@ function StairEditor() {
       oldFloorNumber--;
       console.log(floorTableInfo.specialFloor.haveSpecialFloor);
     }
-    console.log("oldFloorNumber: " + oldFloorNumber);
-    console.log("newFloorNumber: " + newFloorNumber);
     //根據樓層數修改表格資料表
     if (oldFloorNumber === newFloorNumber) {
       //樓層數不變，資料不變
@@ -217,7 +215,9 @@ function StairEditor() {
   // floorTableInfo -> 樓梯表格資料onchange，角度、顏色、階數
   function handleTableChange(e, floorIndex) {
     // console.log(floorIndex);
-    let value = e.target.value;
+    //收到的值取到小數點下一位
+    let value = Math.round(Number(e.target.value) * 10) / 10;
+    console.log(typeof value + value);
     // 複製原有的資料
     const newFloorTableInfo = structuredClone(floorTableInfo);
     // 所有的onchange都至少要重新寫入一次資料
@@ -231,7 +231,6 @@ function StairEditor() {
     //接著判斷其他需要改變的值（style，角度）
     if (floorIndex.stepClass === "firstStepInfo") {
       //b,f,e需要根據資料的值改變style，其他階改變要重算角度
-      console.log("firstStep");
       // 第一階b1>20
       if (floorIndex.stepValueName === "stepHeight") {
         if (value > 20) {
@@ -264,11 +263,11 @@ function StairEditor() {
       // 斜邊長必須>高 才算角度
       if (nowHypotenuse > nowHeight) {
         // 弧度 = asin(b/f)，1弧度 = 180/PI (度)
-        //toFixed(2) 取小數點下第二位
-        newAngle = (
-          (Math.asin(nowHeight / nowHypotenuse) * 180) /
-          Math.PI
-        ).toFixed(2);
+        // Math.round(值＊100)/100 取小數點下第二位
+        newAngle =
+          Math.round(
+            ((Math.asin(nowHeight / nowHypotenuse) * 180) / Math.PI) * 100
+          ) / 100;
       }
       //寫入資料
       newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex][
@@ -425,6 +424,53 @@ function StairEditor() {
 
     setFloorTableInfo(newFloorTableInfo);
   }
+  //還我下半層
+  function handleBackDownStepClick(floorIndex) {
+    // 複製原有的資料
+    let newFloorTableInfo = structuredClone(floorTableInfo);
+    //還他預設的下半層
+    newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex].floorDownStep = {
+      stepNumber: 3,
+      firstStepInfo: [
+        {
+          stepName: "1",
+          stepWidth: "",
+          stepHeight: "",
+          isStepHeightOver: false,
+        },
+      ],
+      otherStepInfo: [
+        {
+          stepName: "2",
+          stepHeight: "",
+          stepHypotenuse: "",
+          stepAngle: "",
+          isStepHeightOver: false,
+          isStepHypotenuseOver: false,
+          isStepAngleOver: false,
+        },
+        {
+          stepName: "3",
+          stepHeight: "",
+          stepHypotenuse: "",
+          stepAngle: "",
+          isStepHeightOver: false,
+          isStepHypotenuseOver: false,
+          isStepAngleOver: false,
+        },
+      ],
+      turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+    };
+    //上半層只留１５階
+    newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex]["floorUpStep"][
+      "stepNumber"
+    ] = 15;
+    newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex]["floorUpStep"][
+      "otherStepInfo"
+    ].splice(14);
+    //寫入新的值
+    setFloorTableInfo(newFloorTableInfo);
+  }
   //新增一層
   function handleAddFloorClick() {
     // 複製原有的資料
@@ -513,6 +559,18 @@ function StairEditor() {
     setFloorTableInfo(newFloorTableInfo);
   }
 
+  //其他問題
+  const [otherQuestionInfo, setOtherQuestionInfo] = useState({
+    stepRounded: false,
+    stepDeep: false,
+    stepSpecial: false,
+  });
+  function handleOtherQChange(changeItem) {
+    let newOtherQuestionInfo = structuredClone(otherQuestionInfo);
+    newOtherQuestionInfo[changeItem] = !otherQuestionInfo[changeItem];
+    setOtherQuestionInfo(newOtherQuestionInfo);
+  }
+
   //儲存(submitMessage)的預設state
   const [submitMessage, setSubmitMessage] = useState({
     isSubmit: false,
@@ -525,7 +583,6 @@ function StairEditor() {
     e.preventDefault();
   }
   function handleSubmitClick() {
-    // console.log("onClick!");
     // 複製原有的資料
     let newSubmitMessage = structuredClone(submitMessage);
 
@@ -693,13 +750,19 @@ function StairEditor() {
     //如果以上判斷都正確，則newSubmitMessage.isSubmitSuccess = undefined;
     if (newSubmitMessage.isSubmitSuccess === undefined) {
       newSubmitMessage.isSubmitSuccess = true;
+      let stairData = {
+        stairBasicInfo: stairBasicInfo,
+        floorTableInfo: floorTableInfo,
+        otherQuestionInfo: otherQuestionInfo,
+      };
+      //印出資料
+      console.log(stairData);
     }
 
     //顯示系統訊息
     newSubmitMessage.isSubmit = true;
 
     setSubmitMessage(newSubmitMessage);
-    console.log(newSubmitMessage);
   }
   function closeMessageCardClick() {
     let initialSubmitMessage = {
@@ -730,9 +793,13 @@ function StairEditor() {
                   floorTableInfo={floorTableInfo}
                   handleSpecialFloorClick={handleSpecialFloorClick}
                   handleTableChange={handleTableChange}
+                  handleBackDownStepClick={handleBackDownStepClick}
                   handleAddFloorClick={handleAddFloorClick}
                 />
-                <OtherEditor />
+                <OtherEditor
+                  otherQuestionInfo={otherQuestionInfo}
+                  handleOtherQChange={handleOtherQChange}
+                />
                 <div className="stair-editor-buttons">
                   <button
                     type="button"

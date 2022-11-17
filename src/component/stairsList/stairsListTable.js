@@ -2,15 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import StairsListTableItem from "./stairsListTableItem";
 
-function StairsListTable() {
-  let stairListTableItemInfo = [
-    { createAt: "2022-10-05", time: "20:08", name: "王小美" },
-    { createAt: "2022-10-04", time: "15:03", name: "王大美" },
-    { createAt: "2022-10-01", time: "21:15", name: "王小名" },
-  ];
+function StairsListTable(props) {
   let stairListTableItems = [];
-  for (let i = 0; i < stairListTableItemInfo.length; i++) {
-    let nowItem = stairListTableItemInfo[i];
+  for (let i = 0; i < props.stairListShow.length; i++) {
+    let nowItem = props.stairListShow[i];
     stairListTableItems.push(
       <StairsListTableItem
         createAt={nowItem.createAt}

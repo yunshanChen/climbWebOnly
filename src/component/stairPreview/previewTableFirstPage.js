@@ -24,7 +24,7 @@ function previewTableFirstPage(props) {
                 <span>公斤</span>
               </th>
               <th colSpan="4" scope="col" className="form-version">
-                新北市輔具資源中心1111020版
+                {props.judgeVersion}
               </th>
             </tr>
             <tr>

@@ -15,6 +15,16 @@ function PreviewTableFirstStep(props) {
     stepHeight: "",
     isStepHeightOver: false,
   };
+  firstStepInfoFirst.stepWidth = valueToDeciaml1(firstStepInfoFirst.stepWidth);
+  firstStepInfoFirst.stepHeight = valueToDeciaml1(
+    firstStepInfoFirst.stepHeight
+  );
+  firstStepInfoSecond.stepWidth = valueToDeciaml1(
+    firstStepInfoSecond.stepWidth
+  );
+  firstStepInfoSecond.stepHeight = valueToDeciaml1(
+    firstStepInfoSecond.stepHeight
+  );
 
   return (
     <tr>
@@ -66,3 +76,26 @@ function PreviewTableFirstStep(props) {
   );
 }
 export default PreviewTableFirstStep;
+
+//將傳入的值取到小數點下一位（或自動補０）
+function valueToDeciaml1(value) {
+  if (value === "") {
+    //如果是空值，直接回傳
+    return value;
+  } else {
+    //是數字
+    if (value.toString().includes(".")) {
+      //如果有小數點
+      //取出小數點後的數值
+      let afterDecimalStr = value.toString().split(".")[1];
+      if (afterDecimalStr !== "0") {
+        //如果小數點後不是0，取小數點下一位
+        value = Math.round(value * 10) / 10;
+      }
+    } else {
+      //沒有小數點，補０
+      value += ".0";
+    }
+  }
+  return value;
+}

@@ -22,6 +22,9 @@ function FloorEditor(props) {
         floorDownStep={nowFloor.floorDownStep}
         floorIndex={floorIndex}
         handleChange={props.handleTableChange}
+        handleBackDownStepClick={() =>
+          props.handleBackDownStepClick(floorIndex)
+        }
         key={nowFloor.floorName + i}
       />
     );

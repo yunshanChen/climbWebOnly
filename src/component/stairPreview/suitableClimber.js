@@ -2,7 +2,17 @@ import React from "react";
 import QRcodeAppointed from "../../img/QRcode_appointed.png";
 import QRcodeAsistCenter from "../../img/QRcode_asistcenter.png";
 
-function SuitableClimber() {
+function SuitableClimber(props) {
+  let climbItems = [];
+  //表格一定要有七列
+  for (let i = 0; i < 7; i++) {
+    climbItems.push(
+      <SuitableClimberItem
+        climberItemInfo={props.suitableClimbers[i]}
+        key={"suitableClimber" + i}
+      />
+    );
+  }
   return (
     <section className="suitable-climber print">
       <div className="title">新北市輔具資源中心</div>
@@ -29,53 +39,7 @@ function SuitableClimber() {
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>翔鎰/天創行電動爬梯椅(座椅式)</td>
-            <td>無</td>
-            <td>
-              益百利、北台灣、優遊小客車、芯願、振生、福倫交通、生通、樂活協會、好爸爸、大立亨、安欣、第一、小驢駒、大心、康健、平安好行
-            </td>
-            <td>
-              益百利、北台灣、優遊小客車、芯願、振生、福倫交通、樂活協會、安欣、第一
-            </td>
-          </tr>
-          <tr>
-            <td>弘采SC-5(座椅式)</td>
-            <td>可月租</td>
-            <td>益百利、車福、多扶接送、喜多移動</td>
-            <td>益百利、車福、弘采介護</td>
-          </tr>
-          <tr>
-            <td>元倫ASC-120B(座椅式)</td>
-            <td>可月租</td>
-            <td>高森能源</td>
-            <td>高森能源</td>
-          </tr>
-          <tr>
-            <td>弘采SA-S(輪椅式)</td>
-            <td>可月租</td>
-            <td>無</td>
-            <td>弘采介護</td>
-          </tr>
-          <tr>
-            <td>元倫ASC-130B(輪椅式)</td>
-            <td>無</td>
-            <td>高森能源</td>
-            <td>高森能源</td>
-          </tr>
-          <tr>
-            <td>天群S-max sella(撐桿式)</td>
-            <td>無</td>
-            <td>益百利、北台灣、振生、福倫交通、安欣、平安好行</td>
-            <td>振生、福倫交通</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
+        <tbody>{climbItems}</tbody>
       </table>
       <div className="result-txt">
         <p className="measurement-error">
@@ -131,3 +95,22 @@ function SuitableClimber() {
   );
 }
 export default SuitableClimber;
+
+function SuitableClimberItem(props) {
+  //如果收到的資料是空的，給他預設值
+  let climberItem = props.climberItemInfo || {
+    climbName: "",
+    ATcenter: "",
+    businessForSingle: "",
+    businessForMonth: "",
+  };
+
+  return (
+    <tr>
+      <td>{climberItem.climbName}</td>
+      <td>{climberItem.ATcenter}</td>
+      <td>{climberItem.businessForSingle}</td>
+      <td>{climberItem.businessForMonth}</td>
+    </tr>
+  );
+}
