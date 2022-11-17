@@ -11,6 +11,7 @@ function StairsListTable(props) {
         createAt={nowItem.createAt}
         time={nowItem.time}
         name={nowItem.name}
+        clickDeleteItem={props.clickDeleteItem}
         key={i}
       />
     );

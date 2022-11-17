@@ -80,3 +80,12 @@
   background-color: var(--btn-blue-hover);
   cursor: pointer;
 }
+.message-buttons .chancel {
+  margin-left: 10px;
+  background-color: var(--btn-red);
+  color: #fff;
+}
+.message-buttons .chancel:hover {
+  background-color: var(--btn-red-hover);
+  cursor: pointer;
+}

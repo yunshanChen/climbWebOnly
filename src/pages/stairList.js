@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StairsListTable from "../component/stairsList/stairsListTable";
-import SystemMessage from "../component/systemMessage";
+import StairListSystemMessage from "../component/stairsList/stairListSystemMessage";
 import "../css/stairList.css";
 
 function StartList() {
@@ -29,6 +29,28 @@ function StartList() {
     //設定為新的值
     setStairListShow(newStairListShow);
   }
+  //處理刪除按鈕
+  const [deleteItemMessage, setdeleteItemMessage] = useState({
+    isMessageCardShow: false,
+    isDeleteItemSuccess: false,
+    message: "",
+  });
+  function clickDeleteItem(deleteMsg) {
+    let newDeleteItemMessage = structuredClone(deleteItemMessage);
+    newDeleteItemMessage.isMessageCardShow = true;
+    newDeleteItemMessage.message = deleteMsg;
+    setdeleteItemMessage(newDeleteItemMessage);
+  }
+  function closeMessageCard() {
+    //關閉時重設
+    let newDeleteItemMessage = structuredClone(deleteItemMessage);
+    newDeleteItemMessage = {
+      isMessageCardShow: false,
+      isDeleteItemSuccess: false,
+      message: "",
+    };
+    setdeleteItemMessage(newDeleteItemMessage);
+  }
   return (
     <>
       <main>
@@ -51,12 +73,18 @@ function StartList() {
               </div>
             </form>
             <div className="card-txt">
-              <StairsListTable stairListShow={stairListShow} />
+              <StairsListTable
+                stairListShow={stairListShow}
+                clickDeleteItem={clickDeleteItem}
+              />
             </div>
           </div>
         </section>
       </main>
-      <SystemMessage />
+      <StairListSystemMessage
+        deleteItemMessage={deleteItemMessage}
+        closeMessageCard={closeMessageCard}
+      />
     </>
   );
 }
