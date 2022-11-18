@@ -217,7 +217,7 @@ function StairEditor() {
     // console.log(floorIndex);
     //收到的值取到小數點下一位
     let value = Math.round(Number(e.target.value) * 10) / 10;
-    console.log(typeof value + value);
+    // console.log(typeof value + value);
     // 複製原有的資料
     const newFloorTableInfo = structuredClone(floorTableInfo);
     // 所有的onchange都至少要重新寫入一次資料
@@ -227,7 +227,7 @@ function StairEditor() {
     ][floorIndex.stepClass][floorIndex.stepClassIndex][
       floorIndex.stepValueName
     ] = value;
-
+    // console.log(floorIndex);
     //接著判斷其他需要改變的值（style，角度）
     if (floorIndex.stepClass === "firstStepInfo") {
       //b,f,e需要根據資料的值改變style，其他階改變要重算角度
@@ -763,6 +763,7 @@ function StairEditor() {
     newSubmitMessage.isSubmit = true;
 
     setSubmitMessage(newSubmitMessage);
+    console.log(newSubmitMessage);
   }
   function closeMessageCardClick() {
     let initialSubmitMessage = {

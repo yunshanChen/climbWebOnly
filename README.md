@@ -1,3 +1,16 @@
+# 簡介
+
+新北市輔具評估「爬梯機」線上版——前端，本系統可以讓使用者填寫樓梯資料並列印出需要的 PDF。
+
+# 網站架構
+
+1. 頁面( src/pages )包含：首頁(login)、帳戶資訊(account)、樓梯列表(stairsList)、樓梯編輯(stairEditor)、預覽列印(stairPreview)。
+2. page 的元件位於 src/component/page 名稱 內。
+3. page 的 css 位於 src/css/page 名稱 內。
+4. 網站所需的圖片位於 src/img 內
+5. 網站路由(react-rounte)寫在 src/App.js 內。
+6. 因有固定的 header，於 src/layout.js 內使用 header.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
