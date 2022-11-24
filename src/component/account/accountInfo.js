@@ -1,19 +1,14 @@
 import React from "react";
 import AccountInfoItem from "./accountInfoItem";
 
-function AccountInfo() {
-  let accountInfo = [
-    { title: "帳號", value: "superman" },
-    { title: "名稱", value: "每天量樓梯好辛苦" },
-    { title: "帳號狀態", value: "一般帳號" },
-  ];
+function AccountInfo(props) {
   //生成accountInfo的每筆資料
   let accountInfoItems = [];
-  for (let i = 0; i < accountInfo.length; i++) {
+  for (let i = 0; i < props.accountInfo.length; i++) {
     accountInfoItems.push(
       <AccountInfoItem
-        title={accountInfo[i].title}
-        value={accountInfo[i].value}
+        title={props.accountInfo[i].title}
+        value={props.accountInfo[i].value}
         key={i}
       />
     );

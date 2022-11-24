@@ -1,0 +1,296 @@
+:root {
+  --capoo-black: rgb(62, 61, 61);
+  --capoo-body-black: rgb(87, 87, 87);
+  --capoo-thunder-black: rgb(70, 70, 70);
+  --capoo-eye-yellow: rgb(255, 247, 123);
+}
+.black-capoo.cover {
+  width: 120px; /* width: 500px; */
+  height: 120px; /* height: 500px; */
+  position: absolute;
+  animation: walk-distance 20s linear 6s infinite;
+  top: 0;
+  right: -120px;
+}
+/* ear */
+.black-capoo .ear-left::after {
+  background-color: var(--capoo-body-black);
+}
+.black-capoo .ear-right-outline {
+  background: var(--capoo-black);
+}
+.black-capoo .ear-right-inner {
+  background-color: var(--capoo-body-black);
+}
+/* body */
+.black-capoo .body .body-rounded {
+  background-color: var(--capoo-body-black);
+}
+
+/* tail */
+.black-capoo .body .tail {
+  left: 54%; /* 300px */
+}
+.black-capoo .body .tail .tail-inner {
+  width: 40%; /*width: 175px;*/
+  height: 47%; /*height: 220px;*/
+  background-color: var(--capoo-body-black);
+  position: absolute;
+  top: 1%;
+  left: -1%;
+  clip-path: polygon(
+    0 5%,
+    20% 1%,
+    25% 0,
+    30% 1%,
+    40% 7%,
+    55% 6%,
+    60% 5%,
+    65% 6%,
+    70% 14%,
+    93% 12%,
+    95% 13%,
+    97% 20%,
+    100% 30%,
+    99% 40%,
+    97% 50%,
+    94% 60%,
+    91% 70%,
+    87% 80%,
+    80% 90%,
+    65% 95%,
+    60% 100%
+  );
+  z-index: 10;
+  scale: 0.9;
+}
+.black-capoo .body .tail .tail-outline {
+  width: 40%; /*width: 175px;*/
+  height: 47%; /*height: 220px;*/
+  background-color: var(--capoo-black);
+  /* background-color: red; */
+  position: absolute;
+  clip-path: polygon(
+    0 5%,
+    20% 1%,
+    25% 0,
+    30% 1%,
+    40% 7%,
+    55% 6%,
+    60% 5%,
+    65% 6%,
+    70% 14%,
+    93% 12%,
+    95% 13%,
+    97% 20%,
+    100% 30%,
+    99% 40%,
+    97% 50%,
+    94% 60%,
+    91% 70%,
+    87% 80%,
+    80% 90%,
+    67% 95%,
+    60% 100%
+  );
+}
+/* back-line */
+/* 第一條閃電 */
+.black-capoo .body .tail .tail-inner::before {
+  content: "";
+  width: 35%; /*width: 80px;*/
+  height: 45%; /*height: 103px;*/
+  background-color: var(--capoo-thunder-black);
+  position: absolute;
+  top: -10%; /*top: 10px;*/
+  left: 10%; /*left: 60px;*/
+  clip-path: polygon(
+    0 35%,
+    40% 0,
+    90% 40%,
+    70% 45%,
+    100% 70%,
+    45% 100%,
+    50% 80%,
+    20% 75%,
+    30% 50%
+  );
+  rotate: -5deg;
+  z-index: 10;
+}
+/* 第二條閃電 */
+.black-capoo .body .tail .tail-inner::after {
+  content: "";
+  width: 35%; /*width: 70px;*/
+  height: 45%; /*height: 90px;*/
+  background-color: var(--capoo-thunder-black);
+  position: absolute;
+  top: -7%; /*top: 20px;*/
+  left: 45%; /*left: 100px;*/
+  clip-path: polygon(
+    0 35%,
+    40% 0,
+    90% 40%,
+    70% 45%,
+    100% 70%,
+    45% 100%,
+    50% 80%,
+    20% 75%,
+    30% 50%
+  );
+  rotate: 10deg;
+  z-index: 10;
+}
+
+/* eye */
+.black-capoo .body .eye .eye-cover {
+  width: 120%;
+  height: 30%;
+  position: absolute;
+  background-color: var(--capoo-body-black);
+  z-index: 8;
+  top: 5%;
+}
+.black-capoo .body .eye .eye-lash {
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  background-color: var(--capoo-black);
+  /* background-color: red; */
+  bottom: 0;
+  z-index: 9;
+}
+.black-capoo .body .eye .eye-outline {
+  width: 100%;
+  height: 100%;
+  clip-path: ellipse(50% 40% at 50% 50%);
+  background-color: var(--capoo-black);
+  position: absolute;
+  z-index: 6;
+}
+.black-capoo .body .eye .eye-inner {
+  width: 100%;
+  height: 100%;
+  clip-path: ellipse(50% 40% at 50% 50%);
+  background-color: var(--capoo-eye-yellow);
+  position: absolute;
+  z-index: 7;
+  scale: 0.6;
+}
+.black-capoo .body .eye .eye-left {
+  width: 7%; /*width: 35px;*/
+  height: 14%; /*height: 70px;*/
+  rotate: 10deg;
+  position: absolute;
+  top: 36%; /*top: 180px;*/
+  left: 17%; /*left: 85px;*/
+  z-index: 6;
+}
+.black-capoo .body .eye .eye-left .eye-cover {
+  left: 5%;
+  rotate: 30deg;
+}
+.black-capoo .body .eye .eye-right .eye-cover {
+  left: -15%;
+  rotate: -30deg;
+}
+.black-capoo .body .eye .eye-right {
+  width: 9%; /*width: 45px;*/
+  height: 15%; /*height: 75px;*/
+  rotate: -5deg;
+  position: absolute;
+  top: 36%; /*top: 180px;*/
+  left: 48%; /*left: 240px;*/
+  z-index: 6;
+}
+
+/* mouth */
+/* mouth-left */
+.black-capoo .body .mouth .mouth-left {
+  width: 8%; /*width: 40px;*/
+  height: 8%; /*height: 40px;*/
+  position: absolute;
+  top: 40%; /*top: 205px;*/
+  left: 27%; /*left: 140px;*/
+  rotate: -35deg;
+  z-index: 7;
+}
+.black-capoo .body .mouth .mouth-round {
+  /* mouth-outline */
+  width: 100%; /*width: 40px;*/
+  height: 100%; /*height: 40px;*/
+  clip-path: ellipse(50% 40% at 50% 50%);
+  background-color: var(--capoo-black);
+  position: absolute;
+  z-index: 6;
+}
+.black-capoo .body .mouth .mouth-left .mouth-round::after {
+  /* mouth-inner */
+  content: "";
+  position: absolute;
+  top: 20%; /* top: 10px; */
+  left: -5%; /* left: 10px; */
+  width: 100%; /*width:20px*/
+  height: 50%; /*height:20px*/
+  clip-path: ellipse(50% 40% at 50% 50%);
+  background-color: var(--capoo-body-black);
+}
+.black-capoo .body .mouth .mouth-left .mouth-cover {
+  width: 100%; /* width: 40px; */
+  height: 50%; /* height: 20px; */
+  background-color: var(--capoo-body-black);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 7;
+}
+/* mouth */
+/* mouth-right */
+.body .mouth .mouth-right {
+  width: 10%; /* width: 50px; */
+  height: 10%; /* height: 50px; */
+  position: absolute;
+  top: 38%; /* top: 198px; */
+  left: 34%; /* left: 165px; */
+  rotate: 30deg;
+  z-index: 7;
+}
+.black-capoo .body .mouth .mouth-right .mouth-round::after {
+  /* mouth-inner */
+  content: "";
+  position: absolute;
+  top: 25%; /* top: 10px; */
+  left: -5%; /* left: 10px; */
+  width: 120%; /*width:20px*/
+  height: 50%; /*height:20px*/
+  clip-path: ellipse(50% 40% at 50% 50%);
+  background-color: var(--capoo-body-black);
+}
+.black-capoo .body .mouth .mouth-right .mouth-cover {
+  width: 100%; /* width: 50px; */
+  height: 58%; /* height: 29px; */
+  background-color: var(--capoo-body-black);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 7;
+}
+
+/* feet */
+/* foot */
+.black-capoo .feet .foot .foot-inner {
+  background-color: var(--capoo-body-black);
+}
+.black-capoo .feet .foot .foot-cover {
+  background-color: var(--capoo-body-black);
+}
+.black-capoo .feet .foot.foot-left-3 .foot-cover {
+  border-radius: 0 0 20% 0;
+}
+/* 動畫 */
+@media screen and (max-width: 992px) {
+  .black-capoo.cover {
+    width: 100px; /* width: 500px; */
+    height: 100px; /* height: 500px; */
+  }
+}

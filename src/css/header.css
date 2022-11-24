@@ -2,6 +2,7 @@
 header {
   width: 100%;
   background-color: rgb(90, 71, 170);
+  position: relative;
 }
 header .navbar {
   display: flex;
@@ -9,13 +10,15 @@ header .navbar {
   padding: 20px 10px;
   border-bottom: 1px solid #fff;
 }
+header .navbar h1 {
+  margin-right: auto;
+}
 header .navbar .title {
   font-size: 36px;
   color: #fff;
 }
 header .navbar .navbar-list {
   display: flex;
-  margin-left: auto;
   padding: 0 10px;
 }
 header .navbar .navbar-list .nav-item {

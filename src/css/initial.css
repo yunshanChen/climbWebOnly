@@ -19,12 +19,18 @@
   text-decoration: none;
 }
 body {
-  position: relative;
   width: 100%;
-  height: 100%;
   background-color: rgb(236, 237, 246);
   color: #fff;
+  overflow-x: hidden;
 }
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 button,
 .link-button {
   padding: 5px 10px;
