@@ -34,7 +34,6 @@ function Login() {
         setAuthToken(result.token);
         //取得使用者資訊
         getMe().then((response) => {
-          // console.log("GETME : ", response);
           setUser(response.name);
         });
       } else {

@@ -2,7 +2,7 @@ import React from "react";
 import "../css/footer.css";
 import BlackCapoo from "./capoos/blackCaooo";
 import Capoo from "./capoos/capoo";
-import Chicken from "./capoos/chicken";
+import { Chicken, TrumpetChicken } from "./capoos/chicken";
 
 function Footer() {
   return (
@@ -11,7 +11,7 @@ function Footer() {
       <Capoo />
       <BlackCapoo />
       <div className="chickens">
-        <Chicken />
+        <TrumpetChicken />
         <Chicken />
         <Chicken />
       </div>

@@ -1,7 +1,8 @@
 :root {
   --chicken-body-yellow: rgb(255, 242, 121);
   --chicken-border: rgb(70, 70, 70);
-  --checken-mouse: rgb(255, 212, 107);
+  --chicken-mouse: rgb(255, 212, 107);
+  --chicken-trumpet: rgb(223, 197, 57);
 }
 .cover.chicken {
   width: 50px;
@@ -74,7 +75,7 @@
 .cover.chicken .body-inner .mouse .mouse-inner {
   width: 21.7%; /* width: 100px; */
   height: 21.7%; /* height: 100px; */
-  background-color: var(--checken-mouse);
+  background-color: var(--chicken-mouse);
   clip-path: polygon(
     5% 55%,
     0 50%,
@@ -115,6 +116,117 @@
   transform: rotate(-15deg);
   animation: chicken-walk-foot-right 1s linear infinite;
 }
+/* trumpet */
+.trumpet {
+  width: 100%;
+  height: 100%;
+  rotate: 5deg;
+  position: absolute;
+  top: 55%;
+  left: 0;
+  z-index: 6;
+  animation: chicken-trumpet 2s linear infinite;
+}
+.trumpet .trumpet-triangle .triangle-outline {
+  width: 50%; /* width: 250px; */
+  height: 16%; /* height: 80px; */
+  background-color: var(--chicken-border);
+  clip-path: polygon(0 0, 97% 45%, 100% 50%, 97% 55%, 0 100%);
+  position: absolute;
+  left: -12%; /* left: -40px; */
+  z-index: 6;
+}
+.trumpet .trumpet-triangle .triangle-inner {
+  width: 54%; /* width: 270px; */
+  height: 16%; /* height: 80px; */
+  background-color: var(--chicken-trumpet);
+  clip-path: polygon(0 0, 97% 45%, 100% 50%, 97% 55%, 0 100%);
+  position: absolute;
+  left: -15%; /* left: -50px; */
+  scale: 0.7;
+  z-index: 8;
+}
+/* horn-big */
+.trumpet .horn-big {
+  width: 16%; /* width: 80px; */
+  height: 60%; /* height: 300px; */
+  position: absolute;
+  top: -22%; /* top: -110px; */
+  left: -14%; /* left: -68px; */
+}
+.trumpet .horn-big .horn-outline {
+  width: 100%;
+  height: 100%;
+  background-color: var(--chicken-border);
+  clip-path: ellipse(40% 35%);
+  position: absolute;
+  z-index: 7;
+}
+.trumpet .horn-big .horn-inner {
+  width: 100%;
+  height: 100%;
+  background-color: var(--chicken-trumpet);
+  clip-path: ellipse(40% 35%);
+  position: absolute;
+  scale: 0.8;
+  z-index: 7;
+}
+/* horn-small */
+.trumpet .horn-small {
+  width: 10%; /* width: 50px; */
+  height: 54%; /* height: 270px; */
+  position: absolute;
+  top: -18%; /* top: -90px; */
+  left: -12.5%; /* left: -60px; */
+}
+.trumpet .horn-small .horn-outline {
+  width: 100%;
+  height: 100%;
+  background-color: var(--chicken-border);
+  clip-path: ellipse(40% 35%);
+  position: absolute;
+  z-index: 9;
+}
+.trumpet .horn-small .horn-inner {
+  width: 100%;
+  height: 100%;
+  background-color: var(--chicken-mouse);
+  clip-path: ellipse(40% 35%);
+  position: absolute;
+  scale: 0.7;
+  z-index: 10;
+}
+.trumpet .trumpet-sound {
+  width: 100%; /* width:100px */
+  height: 100%; /* height:100px */
+}
+.trumpet .trumpet-sound .sound {
+  height: 10%;
+  background-color: var(--chicken-body-yellow);
+  clip-path: polygon(0 0, 97% 45%, 100% 50%, 97% 55%, 0 100%);
+  position: absolute;
+  animation: chicken-trumpet-sound 0.5s steps(1, start) infinite;
+}
+.trumpet .trumpet-sound .sound-1 {
+  width: 12%;
+  top: -10%;
+  left: -25%; /* left: -130px; */
+  rotate: 40deg;
+}
+.trumpet .trumpet-sound .sound-2 {
+  width: 12%;
+  top: 1%;
+  left: -28%;
+  rotate: 5deg;
+}
+.trumpet .trumpet-sound .sound-3 {
+  width: 10%;
+  top: 13%;
+  left: -25%;
+  rotate: -20deg;
+}
+/* animation */
+/* chicken-foot */
 @keyframes chicken-walk-foot-left {
   0% {
     transform: rotate(15deg);
@@ -150,5 +262,50 @@
   }
   100% {
     transform: rotate(-10deg);
+  }
+}
+/* animate */
+/* chicken-trumpet */
+@keyframes chicken-trumpet {
+  0% {
+    width: 100%;
+    height: 100%;
+    top: 55%;
+    left: 0;
+  }
+  25% {
+    width: 120%;
+    height: 120%;
+    top: 53%;
+    left: -8%;
+  }
+  50% {
+    width: 100%;
+    height: 100%;
+    top: 55%;
+    left: 0;
+  }
+  75% {
+    width: 120%;
+    height: 90%;
+    top: 55%;
+    left: -8%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    top: 55%;
+    left: 0;
+  }
+}
+@keyframes chicken-trumpet-sound {
+  0% {
+    width: 10%;
+  }
+  50% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
   }
 }

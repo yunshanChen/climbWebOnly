@@ -14,7 +14,7 @@ function Layout() {
 
   useEffect(() => {
     //如果有token的話，判斷使用者
-    if (getAuthToken) {
+    if (getAuthToken()) {
       getMe().then((response) => {
         if (response.message === "取得成功") {
           setUser(response.name);
