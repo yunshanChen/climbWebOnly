@@ -2,6 +2,8 @@ import React from "react";
 
 function StairsListTableItem(props) {
   let deleteMsg = props.createAt + " " + props.time + " " + props.name;
+  let printItemId = props.createAt + "-" + props.name;
+
   return (
     <tr className="list-item">
       <td className="create-time">
@@ -10,7 +12,15 @@ function StairsListTableItem(props) {
       </td>
       <td className="case-name">{props.name}</td>
       <td className="print">
-        <button className="btn-print">列印PDF</button>
+        <button
+          type="button"
+          className="btn-print"
+          onClick={() => {
+            props.handleDownload(printItemId);
+          }}
+        >
+          列印PDF
+        </button>
       </td>
       <td className="buttons">
         <button type="button" className="btn-modify">

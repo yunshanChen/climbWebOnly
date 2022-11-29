@@ -105,16 +105,20 @@
   position: absolute;
   top: 76%; /* top: 380px; */
   z-index: 1;
+  /* animation */
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 .cover.chicken .feet .foot-left {
   left: 36%; /* left: 180px; */
   transform: rotate(15deg);
-  animation: chicken-walk-foot-left 1s linear infinite;
+  animation-name: chicken-walk-foot-left;
 }
 .cover.chicken .feet .foot-right {
   left: 66%; /* left: 330px; */
   transform: rotate(-15deg);
-  animation: chicken-walk-foot-right 1s linear infinite;
+  animation-name: chicken-walk-foot-right;
 }
 /* trumpet */
 .trumpet {

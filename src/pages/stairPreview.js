@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import PreviewTableFirstPage from "../component/stairPreview/previewTableFirstPage";
-import PreviewTableOtherPage from "../component/stairPreview/previewTableOtherPage";
-import SuitableClimber from "../component/stairPreview/suitableClimber";
+import jsPDF from "jspdf";
+import { toJpeg } from "html-to-image";
+import PrintPDFInfo from "../component/printPDFInfo";
 import "../css/stairPreview.css";
 
 function StairPreview() {
@@ -534,32 +534,40 @@ function StairPreview() {
       businessForMonth: "振生、福倫交通",
     },
   ];
-  //需要印出的頁數為 樓層數(長度)/2無條件進位
-  let printPageNumber = Math.round(floorTableInfo.floorInfo.length / 2);
-  //要印出來的表格至少會有第一頁
-  let previewTable = [
-    <PreviewTableFirstPage
-      stairBasicInfo={stairBasicInfo}
-      floorNumber={floorTableInfo.floorNumber}
-      judgeVersion={floorTableInfo.judgeVersion}
-      floorInfoFirstFloor={floorTableInfo.floorInfo[0]}
-      floorInfoSecondFloor={floorTableInfo.floorInfo[1]}
-      otherQuestionInfo={otherQuestionInfo}
-      key={"previewTableFirstPageFloor"}
-    />,
-  ];
-  //要多印的頁數 第一頁一定要印，要多印的數量為總數-1
-  for (let i = 0; i < printPageNumber - 1; i++) {
-    previewTable.push(
-      <PreviewTableOtherPage
-        floorInfoFirstFloor={floorTableInfo.floorInfo[2 * i + 2]}
-        floorInfoSecondFloor={floorTableInfo.floorInfo[2 * i + 3]}
-        key={"previewTableOtherPageFloor" + i}
-      />
-    );
-  }
+  //列印ＰＤＦ
+  const pdfRef = useRef(null);
+  const handleDownload = () => {
+    const content = pdfRef.current;
+
+    var responsePDF = new jsPDF();
+    //html-to-image
+    toJpeg(content, {
+      quality: 0.7,
+    }).then((imgData) => {
+      // const imgData = canvas.toDataURL("image.jpeg");
+
+      const pdfWidth = responsePDF.internal.pageSize.getWidth();
+      const a4h = 297; //a4高度297mm
+      const pageNumber = 5;
+      // 根據圖片的寬高，依比例計算在pdf內的高度
+      const pdfHeight = a4h * pageNumber;
+      // responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      let position = 0; //目前要印的位置（在圖片上距離y軸)
+      responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+
+      while (-position < pdfHeight) {
+        responsePDF.addImage(imgData, "JPEG", 0, position, pdfWidth, pdfHeight);
+        position = position - a4h;
+        //如果還沒印完，新增空白頁
+        if (-position < pdfHeight) {
+          responsePDF.addPage();
+        }
+      }
+      responsePDF.save("test.pdf");
+    });
+  };
   return (
-    <main>
+    <main className="main-stair-preview">
       <section className="result-buttons no-print">
         <Link className="back-to-stair-info" to="/stairEditor">
           回樓梯表單
@@ -567,9 +575,17 @@ function StairPreview() {
         <button className="print-PDF" onClick={() => window.print()}>
           生成PDF檔
         </button>
+        <button className="print-PDF" onClick={() => handleDownload()}>
+          jstoPDF
+        </button>
       </section>
-      {previewTable}
-      <SuitableClimber suitableClimbers={suitableClimbers} />
+      <PrintPDFInfo
+        stairBasicInfo={stairBasicInfo}
+        floorTableInfo={floorTableInfo}
+        otherQuestionInfo={otherQuestionInfo}
+        suitableClimbers={suitableClimbers}
+        pdfRef={pdfRef}
+      />
     </main>
   );
 }

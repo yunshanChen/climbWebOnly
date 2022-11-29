@@ -1,14 +1,20 @@
+.main-stair-preview {
+  margin: auto;
+}
 /* section */
 section.print,
 section.no-print {
   width: 21cm;
-  margin: auto;
 }
 section.print {
   height: 29.7cm;
   padding: 1cm;
   background-color: #fff;
   color: #000;
+}
+/* print-PDF-info */
+.print-PDF-info {
+  width: 21cm;
 }
 /* .result-buttons */
 .result-buttons .back-to-stair-info {
@@ -34,6 +40,7 @@ section.print {
   background-color: var(--btn-red-hover);
   cursor: pointer;
 }
+
 /* section : stair-preview */
 section.stair-preview {
   border: 1px solid var(--border-gray);

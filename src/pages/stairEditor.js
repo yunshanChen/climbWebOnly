@@ -763,7 +763,6 @@ function StairEditor() {
     newSubmitMessage.isSubmit = true;
 
     setSubmitMessage(newSubmitMessage);
-    console.log(newSubmitMessage);
   }
   function closeMessageCardClick() {
     let initialSubmitMessage = {

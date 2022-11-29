@@ -6,7 +6,7 @@ import { Chicken, TrumpetChicken } from "./capoos/chicken";
 
 function Footer() {
   return (
-    <footer>
+    <footer className="no-print">
       <div className="foot-txt">Capoo Play Ground</div>
       <Capoo />
       <BlackCapoo />

@@ -16,11 +16,8 @@ export function fetchLogin(account, password) {
     body: raw,
     redirect: "follow",
   };
-  fetch("http://10.0.11.30:8080/user/v1/login", requestOptions)
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
+  return fetch("http://10.0.11.30:8080/user/v1/login", requestOptions)
+    .then((response) => response.json())
     .catch((error) => console.log("error", error));
 }
 
@@ -36,7 +33,9 @@ export function getMe() {
     headers: myHeaders,
     redirect: "follow",
   };
-  fetch("http://10.0.11.30:8080/user/v1/me", requestOptions)
+  return fetch("http://10.0.11.30:8080/user/v1/me", requestOptions)
     .then((response) => response.json())
-    .catch((error) => console.log("error", error));
+    .catch((error) => {
+      console.log("error", error);
+    });
 }

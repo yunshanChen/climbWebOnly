@@ -422,51 +422,51 @@
 .capoo .feet .foot .foot-cover {
   background-color: var(--capoo-blue);
 }
+.feet .foot {
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
 .feet .foot.foot-left-1 {
   top: 58%; /* top: 290px; */
   left: 50%; /* left: 255px; */
   z-index: 10;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 無限重複 */
-  animation: walk-foot-left-1 2s linear infinite;
+  /* animation: 名稱 */
+  animation-name: walk-foot-left-1;
 }
 .feet .foot.foot-left-2 {
   top: 57%; /* top: 285px; */
   left: 61%; /* left: 305px; */
   rotate: -5deg;
   z-index: 10;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 延遲幾秒 無限重複 */
-  animation: walk-foot-left-2 2s linear infinite;
+  animation-name: walk-foot-left-2;
 }
 .feet .foot.foot-left-3 {
   left: 73%; /* left: 365px; */
   scale: 1.1;
   z-index: 10;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 延遲幾秒 無限重複 */
-  animation: walk-foot-left-3 2s linear infinite;
+  animation-name: walk-foot-left-3;
 }
 .feet .foot.foot-right-1 {
   top: 56%; /* top: 280px; */
   left: 24%; /* left: 120px; */
   z-index: 1;
   transform-origin: top center;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 無限重複 */
-  animation: walk-foot-right-1 2s linear infinite;
+  animation-name: walk-foot-right-1;
 }
 .feet .foot.foot-right-2 {
   top: 56.4%; /* top: 282px; */
   left: 40%; /* left: 200px; */
   z-index: 1;
   transform-origin: top center;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 無限重複 */
-  animation: walk-foot-right-2 2s linear infinite;
+  animation-name: walk-foot-right-2;
 }
 .feet .foot.foot-right-3 {
   top: 56%; /* top: 280px; */
   left: 53%; /* left: 265px; */
   z-index: 1;
   transform-origin: top center;
-  /* animation: 名稱 跑完１組幾秒 執行的速度 無限重複 */
-  animation: walk-foot-right-3 2s linear infinite;
+  animation-name: walk-foot-right-3;
 }
 /* 動畫 */
 @keyframes walk-foot-left-1 {
