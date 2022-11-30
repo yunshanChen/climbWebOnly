@@ -1,11 +1,21 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import { toJpeg } from "html-to-image";
+import { setDownloadState, getDownloadState } from "../component/utils";
 import PrintPDFInfo from "../component/printPDFInfo";
 import "../css/stairPreview.css";
 
 function StairPreview() {
+  //如果是從stairList來的，列印資料後自行關閉
+  useEffect(() => {
+    let downloadState = getDownloadState();
+    //如果是從stairList跳轉過來的下載
+    if (downloadState === "true") {
+      //按下載鈕
+      document.getElementById("stair-preview-download-button").click();
+    }
+  }, []);
   //收到的資料
   //基本資料
   const stairBasicInfo = {
@@ -542,7 +552,7 @@ function StairPreview() {
     var responsePDF = new jsPDF();
     //html-to-image
     toJpeg(content, {
-      quality: 0.7,
+      quality: 1,
     }).then((imgData) => {
       // const imgData = canvas.toDataURL("image.jpeg");
 
@@ -564,6 +574,11 @@ function StairPreview() {
         }
       }
       responsePDF.save("test.pdf");
+      //如果是從stairList跳轉過來的下載，下載完成後關閉視窗
+      if (getDownloadState() === "true") {
+        setDownloadState(false); //localStorage
+        window.close();
+      }
     });
   };
   return (
@@ -572,11 +587,13 @@ function StairPreview() {
         <Link className="back-to-stair-info" to="/stairEditor">
           回樓梯表單
         </Link>
-        <button className="print-PDF" onClick={() => window.print()}>
+        <button
+          type="button"
+          className="print-PDF"
+          id="stair-preview-download-button"
+          onClick={() => handleDownload()}
+        >
           生成PDF檔
-        </button>
-        <button className="print-PDF" onClick={() => handleDownload()}>
-          jstoPDF
         </button>
       </section>
       <PrintPDFInfo

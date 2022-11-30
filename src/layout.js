@@ -24,6 +24,7 @@ function Layout() {
       });
     }
   }, []);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <Header />

@@ -8,3 +8,11 @@ export const setAuthToken = (token) => {
 export const getAuthToken = () => {
   return localStorage.getItem("token");
 };
+
+//下載ＴＯＫＥＮ
+export const setDownloadState = (state) => {
+  localStorage.setItem("downloadState", state);
+};
+export const getDownloadState = () => {
+  return localStorage.getItem("downloadState");
+};
