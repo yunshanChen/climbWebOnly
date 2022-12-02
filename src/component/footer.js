@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/footer.css";
-import BlackCapoo from "./capoos/blackCaooo";
+import BlackCapoo from "./capoos/blackCapoo";
 import Capoo from "./capoos/capoo";
 import { Chicken, TrumpetChicken } from "./capoos/chicken";
 

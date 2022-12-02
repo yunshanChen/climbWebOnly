@@ -180,53 +180,54 @@
   z-index: 9;
 }
 .capoo .body .tail {
-  left: 60%; /* 300px */
+  top: 19%;
+  left: 54%; /* 300px */
 }
 .capoo .body .tail .tail-inner {
-  width: 35%; /*width: 175px;*/
-  height: 44%; /*height: 220px;*/
+  width: 40%;
+  height: 49%;
   background-color: var(--capoo-blue);
   position: absolute;
   top: 1%;
   left: -1%;
   clip-path: polygon(
     0 5%,
-    60% 13%,
-    70% 12%,
-    80% 10%,
-    85% 30%,
-    84% 50%,
-    83% 60%,
-    82% 70%,
-    81% 80%,
-    80% 85%,
-    79% 90%,
-    75% 95%,
-    70% 100%,
-    10% 100%
+    70% 14%,
+    93% 12%,
+    95% 13%,
+    97% 20%,
+    100% 30%,
+    99% 40%,
+    97% 50%,
+    94% 60%,
+    91% 70%,
+    87% 80%,
+    80% 90%,
+    65% 95%,
+    60% 100%
   );
   z-index: 10;
   scale: 0.9;
 }
 .capoo .body .tail .tail-outline {
-  width: 35%; /*width: 175px;*/
-  height: 44%; /*height: 220px;*/
+  width: 40%;
+  height: 49%;
   background-color: var(--capoo-black);
   position: absolute;
   clip-path: polygon(
     0 5%,
-    60% 13%,
-    70% 12%,
-    80% 10%,
-    85% 30%,
-    84% 50%,
-    83% 60%,
-    82% 70%,
-    81% 80%,
-    80% 85%,
-    79% 90%,
-    75% 95%,
-    70% 100%,
+    70% 14%,
+    93% 12%,
+    95% 13%,
+    97% 20%,
+    100% 30%,
+    99% 40%,
+    97% 50%,
+    94% 60%,
+    91% 70%,
+    87% 80%,
+    80% 90%,
+    65% 95%,
     60% 100%
   );
 }
@@ -245,10 +246,10 @@
   height: 10%; /*height: 50px;*/
   background-color: var(--capoo-back-blue);
   position: absolute;
-  top: 5%; /*top: 25px;*/
-  left: 4%; /* left: 20px;*/
+  top: 6.2%;
+  left: 10%;
   border-radius: 0 0 60% 40%;
-  rotate: 6deg;
+  rotate: 9deg;
   z-index: 10;
 }
 /* 第二條線 */
@@ -258,9 +259,10 @@
   height: 27.2%; /*height: 60px;*/
   background-color: var(--capoo-back-blue);
   position: absolute;
-  top: 4.5%; /*top: 10px;*/
-  left: 34.2%; /*left: 60px;*/
+  top: 6%;
+  left: 46%;
   border-radius: 0 0 60% 20%;
+  rotate: 5deg;
   z-index: 10;
 }
 /* 第三條線 */
@@ -270,9 +272,10 @@
   height: 22.7%; /*height: 50px;*/
   background-color: var(--capoo-back-blue);
   position: absolute;
-  top: 11.4%; /*top: 20px;*/
-  left: 57.1%; /*left: 100px;*/
+  top: 11.4%;
+  left: 70%;
   border-radius: 0 0 80% 20%;
+  rotate: 5deg;
   z-index: 10;
 }
 
@@ -446,6 +449,9 @@
   scale: 1.1;
   z-index: 10;
   animation-name: walk-foot-left-3;
+}
+.capoo .feet .foot.foot-left-3 .foot-cover {
+  border-radius: 0 0 10% 0;
 }
 .feet .foot.foot-right-1 {
   top: 56%; /* top: 280px; */

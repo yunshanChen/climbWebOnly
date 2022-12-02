@@ -1,14 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import { toJpeg } from "html-to-image";
 import { setDownloadState, getDownloadState } from "../component/utils";
 import PrintPDFInfo from "../component/printPDFInfo";
+import Capoo from "../component/capoos/capoo";
+import BlackCapoo from "../component/capoos/blackCapoo";
+import { Chicken, TrumpetChicken } from "../component/capoos/chicken";
+
 import "../css/stairPreview.css";
 
 function StairPreview() {
+  const pdfRef = useRef(null);
+  const [downloading, loadingCover] = useDownloadPDF(pdfRef);
+  console.log("loadingCover : ", loadingCover);
   //如果是從stairList來的，列印資料後自行關閉
   useEffect(() => {
+    window.scrollTo(0, 0);
     let downloadState = getDownloadState();
     //如果是從stairList跳轉過來的下載
     if (downloadState === "true") {
@@ -16,6 +24,7 @@ function StairPreview() {
       document.getElementById("stair-preview-download-button").click();
     }
   }, []);
+
   //收到的資料
   //基本資料
   const stairBasicInfo = {
@@ -544,43 +553,7 @@ function StairPreview() {
       businessForMonth: "振生、福倫交通",
     },
   ];
-  //列印ＰＤＦ
-  const pdfRef = useRef(null);
-  const handleDownload = () => {
-    const content = pdfRef.current;
 
-    var responsePDF = new jsPDF();
-    //html-to-image
-    toJpeg(content, {
-      quality: 1,
-    }).then((imgData) => {
-      // const imgData = canvas.toDataURL("image.jpeg");
-
-      const pdfWidth = responsePDF.internal.pageSize.getWidth();
-      const a4h = 297; //a4高度297mm
-      const pageNumber = 5;
-      // 根據圖片的寬高，依比例計算在pdf內的高度
-      const pdfHeight = a4h * pageNumber;
-      // responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
-      let position = 0; //目前要印的位置（在圖片上距離y軸)
-      responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
-
-      while (-position < pdfHeight) {
-        responsePDF.addImage(imgData, "JPEG", 0, position, pdfWidth, pdfHeight);
-        position = position - a4h;
-        //如果還沒印完，新增空白頁
-        if (-position < pdfHeight) {
-          responsePDF.addPage();
-        }
-      }
-      responsePDF.save("test.pdf");
-      //如果是從stairList跳轉過來的下載，下載完成後關閉視窗
-      if (getDownloadState() === "true") {
-        setDownloadState(false); //localStorage
-        window.close();
-      }
-    });
-  };
   return (
     <main className="main-stair-preview">
       <section className="result-buttons no-print">
@@ -591,7 +564,7 @@ function StairPreview() {
           type="button"
           className="print-PDF"
           id="stair-preview-download-button"
-          onClick={() => handleDownload()}
+          onClick={() => downloading("download")}
         >
           生成PDF檔
         </button>
@@ -603,7 +576,82 @@ function StairPreview() {
         suitableClimbers={suitableClimbers}
         pdfRef={pdfRef}
       />
+      <div className={loadingCover ? "loading-cover" : "loading-cover none"}>
+        <div className="loading-txt">Loading...</div>
+        {loadingCover}
+      </div>
     </main>
   );
 }
 export default StairPreview;
+
+//下載檔案
+//下載功能function
+const useDownloadPDF = (pdfRef) => {
+  console.log("useDownloadPDF開始");
+  //列出可以顯示的圖片
+  let capooList = [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];
+  const [loadingCover, setLoadingCover] = useState("");
+
+  //定義下載函式
+  const downloading = useCallback(
+    (download) => {
+      console.log("執行downloading");
+      console.log("download : ", download);
+
+      const handleDownload = () => {
+        //取得資料位置
+        console.log("執行handleDownload");
+        const content = pdfRef.current;
+
+        var responsePDF = new jsPDF();
+        //html-to-image
+        toJpeg(content, {
+          quality: 1,
+        }).then((imgData) => {
+          const pdfWidth = responsePDF.internal.pageSize.getWidth(); //a4寬度210mm
+          const a4h = 297; //a4高度297mm
+          const pageNumber = 5;
+          // 根據圖片的寬高，依比例計算在pdf內的高度
+          const pdfHeight = a4h * pageNumber;
+          // responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+          let position = 0; //目前要印的位置（在圖片上距離y軸)
+          responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+
+          while (-position < pdfHeight) {
+            responsePDF.addImage(
+              imgData,
+              "JPEG",
+              0,
+              position,
+              pdfWidth,
+              pdfHeight
+            );
+            position = position - a4h;
+            //如果還沒印完，新增空白頁
+            if (-position < pdfHeight) {
+              responsePDF.addPage();
+            }
+          }
+          responsePDF.save("test.pdf");
+          console.log("下載結束");
+          setLoadingCover("");
+          if (getDownloadState() === "true") {
+            setDownloadState(false); //localStorage
+            window.close();
+          }
+        });
+      };
+
+      if (download === "download") {
+        console.log("下載開始");
+        setLoadingCover(capooList[(Math.random() * 4) | 0]);
+        handleDownload();
+      }
+    },
+    [pdfRef, capooList]
+  );
+
+  console.log("useDownloadPDF結束");
+  return [downloading, loadingCover];
+};
