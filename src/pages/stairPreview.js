@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import { toJpeg } from "html-to-image";
@@ -9,11 +15,18 @@ import BlackCapoo from "../component/capoos/blackCapoo";
 import { Chicken, TrumpetChicken } from "../component/capoos/chicken";
 
 import "../css/stairPreview.css";
+import "../css/loadingCover.css";
 
 function StairPreview() {
   const pdfRef = useRef(null);
-  const [downloading, loadingCover] = useDownloadPDF(pdfRef);
-  console.log("loadingCover : ", loadingCover);
+  const capooList = useMemo(() => {
+    return [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];
+  }, []);
+  // const [downloading, loadingCover] = useDownloadPDF(pdfRef);
+  const [downloading] = useDownloadPDF(pdfRef);
+  const [loadingCover, setLoadingCover] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
+  // console.log("loadingCover : ", loadingCover);
   //如果是從stairList來的，列印資料後自行關閉
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,9 +34,10 @@ function StairPreview() {
     //如果是從stairList跳轉過來的下載
     if (downloadState === "true") {
       //按下載鈕
+      setLoadingCover(capooList[(Math.random() * 4) | 0]);
       document.getElementById("stair-preview-download-button").click();
     }
-  }, []);
+  }, [capooList]);
 
   //收到的資料
   //基本資料
@@ -564,7 +578,11 @@ function StairPreview() {
           type="button"
           className="print-PDF"
           id="stair-preview-download-button"
-          onClick={() => downloading("download")}
+          onClick={() => {
+            setLoadingCover(capooList[(Math.random() * 4) | 0]);
+            setIsDownloading(true);
+            downloading("download", setIsDownloading);
+          }}
         >
           生成PDF檔
         </button>
@@ -576,7 +594,10 @@ function StairPreview() {
         suitableClimbers={suitableClimbers}
         pdfRef={pdfRef}
       />
-      <div className={loadingCover ? "loading-cover" : "loading-cover none"}>
+      <div
+        className={isDownloading ? "loading-cover" : "loading-cover none"}
+        id="loading-cover"
+      >
         <div className="loading-txt">Loading...</div>
         {loadingCover}
       </div>
@@ -589,13 +610,10 @@ export default StairPreview;
 //下載功能function
 const useDownloadPDF = (pdfRef) => {
   console.log("useDownloadPDF開始");
-  //列出可以顯示的圖片
-  let capooList = [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];
-  const [loadingCover, setLoadingCover] = useState("");
 
   //定義下載函式
   const downloading = useCallback(
-    (download) => {
+    (download, setIsDownloading) => {
       console.log("執行downloading");
       console.log("download : ", download);
 
@@ -614,7 +632,7 @@ const useDownloadPDF = (pdfRef) => {
           const pageNumber = 5;
           // 根據圖片的寬高，依比例計算在pdf內的高度
           const pdfHeight = a4h * pageNumber;
-          // responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+
           let position = 0; //目前要印的位置（在圖片上距離y軸)
           responsePDF.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
 
@@ -635,7 +653,8 @@ const useDownloadPDF = (pdfRef) => {
           }
           responsePDF.save("test.pdf");
           console.log("下載結束");
-          setLoadingCover("");
+          setIsDownloading(false);
+
           if (getDownloadState() === "true") {
             setDownloadState(false); //localStorage
             window.close();
@@ -645,13 +664,12 @@ const useDownloadPDF = (pdfRef) => {
 
       if (download === "download") {
         console.log("下載開始");
-        setLoadingCover(capooList[(Math.random() * 4) | 0]);
         handleDownload();
       }
     },
-    [pdfRef, capooList]
+    [pdfRef]
   );
 
   console.log("useDownloadPDF結束");
-  return [downloading, loadingCover];
+  return [downloading];
 };

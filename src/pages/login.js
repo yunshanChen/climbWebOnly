@@ -1,9 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import LoginSystemMessage from "../component/loginSystemMessage";
 import { fetchLogin, getMe } from "../component/webAPI";
 import { setAuthToken } from "../component/utils";
 import "../css/login.css";
+import "../css/loadingCover.css";
 import AuthContext from "../component/contexts";
+
+import Capoo from "../component/capoos/capoo";
+import BlackCapoo from "../component/capoos/blackCapoo";
+import { Chicken, TrumpetChicken } from "../component/capoos/chicken";
 
 function Login() {
   const { user, setUser } = useContext(AuthContext);
@@ -16,6 +21,13 @@ function Login() {
   let [account, setAccount] = useState("");
   let [password, setPassword] = useState("");
 
+  //loading畫面
+  const capooList = useMemo(() => {
+    return [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];
+  }, []);
+  const [loadingCover, setLoadingCover] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   //監聽input
   function accountPwdChange(e, accountOrPwd) {
     if (accountOrPwd === "account") {
@@ -26,26 +38,39 @@ function Login() {
   }
   //送出登入
   function clickLogin() {
-    fetchLogin(account, password).then((result) => {
-      let isLoginSuccess;
-      if (result.message === "登入成功") {
-        isLoginSuccess = true;
-        // 將 token 存到 localStorage
-        setAuthToken(result.token);
-        //取得使用者資訊
-        getMe().then((response) => {
-          setUser(response.name);
+    setLoadingCover(capooList[(Math.random() * 4) | 0]);
+    setIsLoading(true);
+    fetchLogin(account, password)
+      .then((result) => {
+        let isLoginSuccess;
+        if (result.message === "登入成功") {
+          isLoginSuccess = true;
+          // 將 token 存到 localStorage
+          setAuthToken(result.token);
+          //取得使用者資訊
+          getMe().then((response) => {
+            setUser(response.name);
+          });
+        } else {
+          isLoginSuccess = false;
+        }
+        setIsLoading(false);
+        setLoginMessage({
+          isMessageCardShow: true,
+          isLoginSuccess: isLoginSuccess,
+          message: "",
+          backendMessage: result.message + "！",
         });
-      } else {
-        isLoginSuccess = false;
-      }
-      setLoginMessage({
-        isMessageCardShow: true,
-        isLoginSuccess: isLoginSuccess,
-        message: "",
-        backendMessage: result.message + "！",
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setLoginMessage({
+          isMessageCardShow: true,
+          isLoginSuccess: false,
+          message: error,
+          backendMessage: "可能的原因：網路連線問題或伺服器錯誤。",
+        });
       });
-    });
   }
   function closeMessageCard() {
     //關閉時重設
@@ -54,6 +79,7 @@ function Login() {
       isMessageCardShow: false,
       isLoginSuccess: false,
       message: "",
+      backendMessage: "",
     };
     setLoginMessage(newLoginMessage);
   }
@@ -106,6 +132,13 @@ function Login() {
         loginMessage={loginMessage}
         closeMessageCard={closeMessageCard}
       />
+      <div
+        className={isLoading ? "loading-cover" : "loading-cover none"}
+        id="loading-cover"
+      >
+        <div className="loading-txt">Loading...</div>
+        {loadingCover}
+      </div>
     </>
   );
 }

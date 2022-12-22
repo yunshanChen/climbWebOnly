@@ -38,6 +38,7 @@ function StairEditorBasic(props) {
           id="floor"
           placeholder="樓層數"
           min="2"
+          step="1"
           value={props.floorNumber}
           onChange={(e) => props.handleFloorNumberChange(e)}
           onBlur={(e) => props.handleFloorNumberOnBlur(e)}

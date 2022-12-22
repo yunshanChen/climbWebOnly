@@ -22,7 +22,7 @@ function StairEditor() {
   }
 
   // floorTableInfo
-  // 沒有預設樓層
+  // 預設：沒有樓層
   const [floorTableInfo, setFloorTableInfo] = useState({
     floorNumber: "",
     specialFloor: {
@@ -48,103 +48,112 @@ function StairEditor() {
     let oldFloorNumber = floorTableInfo.floorInfo.length + 1;
     //複製原有的資料
     const newFloorTableInfo = structuredClone(floorTableInfo);
-    //如果輸入的數字<=1（不合法）
-    if (newFloorNumber <= 1) {
-      newFloorNumber = 2;
-      newFloorTableInfo.floorNumber = newFloorNumber;
-      //寫入新的資料
-      alert("樓層數必須>1");
-    }
 
     //如果有特殊樓層
     if (floorTableInfo.specialFloor.haveSpecialFloor) {
       oldFloorNumber--;
-      console.log(floorTableInfo.specialFloor.haveSpecialFloor);
     }
-    //根據樓層數修改表格資料表
-    if (oldFloorNumber === newFloorNumber) {
-      //樓層數不變，資料不變
-    } else if (oldFloorNumber > newFloorNumber) {
-      //樓層數變少
-      //如果有特殊樓層
-      if (floorTableInfo.specialFloor.haveSpecialFloor) {
-        newFloorTableInfo.floorInfo.splice(newFloorNumber);
+
+    //如果輸入的數字<=1（不合法）
+    if (newFloorNumber <= 1) {
+      //根據資料，寫回原本的樓層數
+      if (oldFloorNumber >= 2) {
+        //如果有存在樓層，樓層數 = 舊的樓層數
+        newFloorNumber = oldFloorNumber;
       } else {
-        newFloorTableInfo.floorInfo.splice(newFloorNumber - 1);
+        //如果不存在樓層，強制變更為２層樓
+        newFloorNumber = 2;
       }
-    } else if (oldFloorNumber < newFloorNumber) {
-      //樓層數變多
-      for (let i = oldFloorNumber; i < newFloorNumber; i++) {
-        let newFloorName = i + "F ↹ " + (i + 1) + "F";
-        newFloorTableInfo.floorInfo.push({
-          floorName: newFloorName,
-          floorUpStep: {
-            stepNumber: 3,
-            firstStepInfo: [
-              {
-                stepName: "1",
-                stepWidth: "",
-                stepHeight: "",
-                isStepHeightOver: false,
-              },
-            ],
-            otherStepInfo: [
-              {
-                stepName: "2",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-              {
-                stepName: "3",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-            ],
-            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-          },
-          floorDownStep: {
-            stepNumber: 3,
-            firstStepInfo: [
-              {
-                stepName: "1",
-                stepWidth: "",
-                stepHeight: "",
-                isStepHeightOver: false,
-              },
-            ],
-            otherStepInfo: [
-              {
-                stepName: "2",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-              {
-                stepName: "3",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-            ],
-            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-          },
-        });
+      //寫入新的資料
+      newFloorTableInfo.floorNumber = newFloorNumber;
+      alert("樓層數必須>1");
+    } else {
+      //如果輸入的數字>=2 (合法)，根據樓層數修改表格資料表
+      if (oldFloorNumber === newFloorNumber) {
+        //樓層數不變，資料不變
+      } else if (oldFloorNumber > newFloorNumber) {
+        //樓層數變少
+        //如果有特殊樓層
+        if (floorTableInfo.specialFloor.haveSpecialFloor) {
+          newFloorTableInfo.floorInfo.splice(newFloorNumber);
+        } else {
+          newFloorTableInfo.floorInfo.splice(newFloorNumber - 1);
+        }
+      } else if (oldFloorNumber < newFloorNumber) {
+        //樓層數變多
+        for (let i = oldFloorNumber; i < newFloorNumber; i++) {
+          let newFloorName = i + "F ↹ " + (i + 1) + "F";
+          newFloorTableInfo.floorInfo.push({
+            floorName: newFloorName,
+            floorUpStep: {
+              stepNumber: 3,
+              firstStepInfo: [
+                {
+                  stepName: "1",
+                  stepWidth: "",
+                  stepHeight: "",
+                  isStepHeightOver: false,
+                },
+              ],
+              otherStepInfo: [
+                {
+                  stepName: "2",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+                {
+                  stepName: "3",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+              ],
+              turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+            },
+            floorDownStep: {
+              stepNumber: 3,
+              firstStepInfo: [
+                {
+                  stepName: "1",
+                  stepWidth: "",
+                  stepHeight: "",
+                  isStepHeightOver: false,
+                },
+              ],
+              otherStepInfo: [
+                {
+                  stepName: "2",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+                {
+                  stepName: "3",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+              ],
+              turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+            },
+          });
+        }
       }
     }
+
     setFloorTableInfo(newFloorTableInfo);
   }
   // 1.5樓
@@ -750,14 +759,15 @@ function StairEditor() {
     //如果以上判斷都正確，則newSubmitMessage.isSubmitSuccess = undefined;
     if (newSubmitMessage.isSubmitSuccess === undefined) {
       newSubmitMessage.isSubmitSuccess = true;
-      let stairData = {
-        stairBasicInfo: stairBasicInfo,
-        floorTableInfo: floorTableInfo,
-        otherQuestionInfo: otherQuestionInfo,
-      };
-      //印出資料
-      console.log(stairData);
     }
+
+    //印出資料
+    let stairData = {
+      stairBasicInfo: stairBasicInfo,
+      floorTableInfo: floorTableInfo,
+      otherQuestionInfo: otherQuestionInfo,
+    };
+    console.log(stairData);
 
     //顯示系統訊息
     newSubmitMessage.isSubmit = true;
