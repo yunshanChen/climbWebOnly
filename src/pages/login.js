@@ -42,6 +42,7 @@ function Login() {
     setIsLoading(true);
     fetchLogin(account, password)
       .then((result) => {
+        console.log(result);
         let isLoginSuccess;
         if (result.message === "登入成功") {
           isLoginSuccess = true;

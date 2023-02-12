@@ -63,8 +63,75 @@ function StairEditor() {
       } else {
         //如果不存在樓層，強制變更為２層樓
         newFloorNumber = 2;
+        newFloorTableInfo.floorInfo.push({
+          floorName: "1F ↹ 2F",
+          floorUpStep: {
+            stepNumber: 3,
+            firstStepInfo: [
+              {
+                stepName: "1",
+                stepWidth: "",
+                stepHeight: "",
+                isStepHeightOver: false,
+              },
+            ],
+            otherStepInfo: [
+              {
+                stepName: "2",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+              {
+                stepName: "3",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+            ],
+            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+          },
+          floorDownStep: {
+            stepNumber: 3,
+            firstStepInfo: [
+              {
+                stepName: "1",
+                stepWidth: "",
+                stepHeight: "",
+                isStepHeightOver: false,
+              },
+            ],
+            otherStepInfo: [
+              {
+                stepName: "2",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+              {
+                stepName: "3",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+            ],
+            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+          },
+        });
       }
-      //寫入新的資料
+      //寫入新的樓層
       newFloorTableInfo.floorNumber = newFloorNumber;
       alert("樓層數必須>1");
     } else {
