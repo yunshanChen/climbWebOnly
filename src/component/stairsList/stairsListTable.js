@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { setStairId } from "../utils";
 import StairsListTableItem from "./stairsListTableItem";
 
 function StairsListTable(props) {
@@ -11,12 +12,18 @@ function StairsListTable(props) {
         createAt={nowItem.createAt}
         time={nowItem.time}
         name={nowItem.name}
+        id={nowItem.id}
         handleDownload={props.handleDownload}
         clickDeleteItem={props.clickDeleteItem}
         key={i}
       />
     );
   }
+  //新增時所需要的資訊(設定localStorage)
+  function addNewStairEditor() {
+    setStairId("New");
+  }
+
   return (
     <table className="stairs-list">
       <thead>
@@ -25,7 +32,13 @@ function StairsListTable(props) {
           <th className="case-name">姓名</th>
           <th className="print">列印</th>
           <th className="buttons">
-            <Link to="/stairEditor" className="link-button create-new">
+            <Link
+              to="/stairEditor"
+              className="link-button create-new"
+              onClick={() => {
+                addNewStairEditor();
+              }}
+            >
               新增
             </Link>
           </th>

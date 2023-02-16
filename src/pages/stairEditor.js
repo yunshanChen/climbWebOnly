@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FloorEditor from "../component/stairEditor/floorEditor";
 import OtherEditor from "../component/stairEditor/otherEditor";
 import StairEditorBasic from "../component/stairEditor/stairEditorBasic";
 import StairEditorSystemMessage from "../component/stairEditor/stairEditorSystemMessage";
+import { getStairId } from "../component/utils";
+import { getStairInfoById } from "../component/webAPI";
 import "../css/stairEditor.css";
 
 function StairEditor() {
+  // 資料設定 //
   // stairBasicInfo
   const [stairBasicInfo, setStairBasicInfo] = useState({
     caseName: "",
@@ -13,16 +16,7 @@ function StairEditor() {
     address: "",
     // 新北市ＯＯ區ＯＯ路123巷45弄78號3樓之9
   });
-  function handleBasicInfoChange(e, changeTitle) {
-    let value = e.target.value;
-    // 複製原有的資料
-    const newStairBasicInfo = structuredClone(stairBasicInfo);
-    newStairBasicInfo[changeTitle] = value;
-    setStairBasicInfo(newStairBasicInfo);
-  }
-
-  // floorTableInfo
-  // 預設：沒有樓層
+  // floorTableInfo 預設：沒有樓層
   const [floorTableInfo, setFloorTableInfo] = useState({
     floorNumber: "",
     specialFloor: {
@@ -32,6 +26,144 @@ function StairEditor() {
     },
     floorInfo: [],
   });
+  // 其他問題
+  const [otherQuestionInfo, setOtherQuestionInfo] = useState({
+    stepRounded: false,
+    stepDeep: false,
+    stepSpecial: false,
+  });
+
+  // useEffect //
+  useEffect(() => {
+    const stairId = getStairId();
+    getStairInfoById(stairId).then((response) => {
+      const stairInfo = response.stairinfo;
+      console.log(stairInfo);
+      //基本資料
+      const newStairBasicInfo = {
+        caseName: stairInfo.casename,
+        bodyWeight: stairInfo.caseweight,
+        address: stairInfo.caseaddress,
+      };
+      // floorTableInfo
+      const newFloorTableInfo = {
+        floorNumber: parseInt(stairInfo.totalfloors) + 1,
+        specialFloor: {
+          haveSpecialFloor: stairInfo.isspecialfloors,
+          haveSpecialFloorClass: "have-special-floor",
+          noSpecialFloor: "no-special-floor none",
+        },
+        floorInfo: [],
+      };
+      //新增各個樓層資訊
+      for (let i = 0; i < stairInfo.floorinfo.length; i++) {
+        let newFloorName = i + 1 + "F ↹ " + (i + 2) + "F";
+        let nowFloorInfo = stairInfo.floorinfo[i];
+        newFloorTableInfo.floorInfo.push({
+          floorName: newFloorName,
+          floorUpStep: {
+            stepNumber: "",
+            firstStepInfo: [],
+            otherStepInfo: [],
+            turnPlatform: [],
+          },
+          floorDownStep: {
+            stepNumber: 3,
+            firstStepInfo: [
+              {
+                stepName: "1",
+                stepWidth: "",
+                stepHeight: "",
+                isStepHeightOver: false,
+              },
+            ],
+            otherStepInfo: [
+              {
+                stepName: "2",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+              {
+                stepName: "3",
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              },
+            ],
+            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+          },
+        });
+
+        //新增這一層樓的 第一階 ＊目前只新增上半層
+        newFloorTableInfo.floorInfo[i].floorUpStep.firstStepInfo.push({
+          stepName: "1",
+          stepWidth: nowFloorInfo.stepinfo[0].stepwidth,
+          stepHeight: nowFloorInfo.stepinfo[0].stepheight,
+          isStepHeightOver: false,
+        });
+        //新增這一層樓的 其他階 ＊目前只新增上半層
+        for (let j = 1; j < nowFloorInfo.stepinfo.length; j++) {
+          newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.push({
+            stepName: j + 1,
+            stepHeight: nowFloorInfo.stepinfo[j].stepheight,
+            stepHypotenuse: nowFloorInfo.stepinfo[j].stephypotenuse,
+            stepAngle: nowFloorInfo.stepinfo[j].stepangle,
+            isStepHeightOver: false,
+            isStepHypotenuseOver: false,
+            isStepAngleOver: false,
+          });
+          //如果是最後一階，且階數<=15 -> 新增空的一階
+          if (
+            j === nowFloorInfo.stepinfo.length - 1 &&
+            nowFloorInfo.stepinfo.length <= 15
+          ) {
+            // console.log("add a step!");
+            newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.push({
+              stepName: j + 2,
+              stepHeight: "",
+              stepHypotenuse: "",
+              stepAngle: "",
+              isStepHeightOver: false,
+              isStepHypotenuseOver: false,
+              isStepAngleOver: false,
+            });
+          }
+        }
+        //新增這一層樓的 迴轉平台 ＊目前只新增上半層
+        newFloorTableInfo.floorInfo[i].floorUpStep.turnPlatform.push({
+          g1: nowFloorInfo.turnplatforminfo.g1 || "",
+          g2: nowFloorInfo.turnplatforminfo.g2 || "",
+          g3g4: nowFloorInfo.turnplatforminfo.g3g4 || "",
+          g3: nowFloorInfo.turnplatforminfo.g3 || "",
+          g4: nowFloorInfo.turnplatforminfo.g4 || "",
+        });
+        //新增這一層樓的 總階數（用於顯示） ＊目前只新增上半層
+        newFloorTableInfo.floorInfo[i].floorUpStep.stepNumber =
+          newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.length + 1;
+      }
+      console.log(newFloorTableInfo);
+      //設定資料
+      setStairBasicInfo(newStairBasicInfo);
+      setFloorTableInfo(newFloorTableInfo);
+    });
+  }, []);
+
+  // 功能設定 //
+  // stairBasicInfo -> 資料監聽
+  function handleBasicInfoChange(e, changeTitle) {
+    let value = e.target.value;
+    // 複製原有的資料
+    const newStairBasicInfo = structuredClone(stairBasicInfo);
+    newStairBasicInfo[changeTitle] = value;
+    setStairBasicInfo(newStairBasicInfo);
+  }
   // floorTableInfo -> 改變樓層數
   function handleFloorNumberChange(e) {
     let newFloorNumber = e.target.value;
@@ -634,13 +766,7 @@ function StairEditor() {
     });
     setFloorTableInfo(newFloorTableInfo);
   }
-
-  //其他問題
-  const [otherQuestionInfo, setOtherQuestionInfo] = useState({
-    stepRounded: false,
-    stepDeep: false,
-    stepSpecial: false,
-  });
+  //其他問題 -> 資料監聽
   function handleOtherQChange(changeItem) {
     let newOtherQuestionInfo = structuredClone(otherQuestionInfo);
     newOtherQuestionInfo[changeItem] = !otherQuestionInfo[changeItem];

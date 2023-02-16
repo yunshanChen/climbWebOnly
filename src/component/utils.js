@@ -16,3 +16,11 @@ export const setDownloadState = (state) => {
 export const getDownloadState = () => {
   return localStorage.getItem("downloadState");
 };
+
+// 目前stairid (stairEditor, stairPreview用)
+export const setStairId = (state) => {
+  localStorage.setItem("stairId", state);
+};
+export const getStairId = () => {
+  return localStorage.getItem("stairId");
+};

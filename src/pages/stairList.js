@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setDownloadState } from "../component/utils";
 import StairsListTable from "../component/stairsList/stairsListTable";
 import StairListSystemMessage from "../component/stairsList/stairListSystemMessage";
 import "../css/stairList.css";
+import { getStairInfo } from "../component/webAPI";
 
 function StartList() {
+  // 初始資料
   let stairListTableItemInfo = [
-    { createAt: "2022-10-05", time: "20:08", name: "王小美" },
-    { createAt: "2022-10-04", time: "15:03", name: "王大美" },
-    { createAt: "2022-10-01", time: "21:15", name: "王小名" },
+    { createAt: "0000-00-00", time: "00:00", name: "沒有資料" },
   ];
   let [stairListShow, setStairListShow] = useState(stairListTableItemInfo);
+
+  useEffect(() => {
+    getStairInfo().then((response) => {
+      // console.log(response.stairinfos);
+      let newStairListShow = response.stairinfos.map((item) => {
+        return {
+          createAt: "2022-10-00",
+          time: "99:99",
+          name: item.casename,
+          id: item.stairid,
+        };
+      });
+      setStairListShow(newStairListShow);
+    });
+  }, []);
 
   //監聽搜尋輸入，根據輸入值判斷要顯示的項目
   function handleSearch(e) {
