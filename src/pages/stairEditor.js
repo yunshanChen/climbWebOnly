@@ -8,6 +8,8 @@ import { getStairInfoById } from "../component/webAPI";
 import "../css/stairEditor.css";
 
 function StairEditor() {
+  // 取得樓梯Id
+  const stairId = getStairId();
   // 資料設定 //
   // stairBasicInfo
   const [stairBasicInfo, setStairBasicInfo] = useState({
@@ -33,126 +35,142 @@ function StairEditor() {
     stepSpecial: false,
   });
 
-  // useEffect //
+  // useEffect 將api資料填入 //
   useEffect(() => {
-    const stairId = getStairId();
-    getStairInfoById(stairId).then((response) => {
-      const stairInfo = response.stairinfo;
-      console.log(stairInfo);
-      //基本資料
-      const newStairBasicInfo = {
-        caseName: stairInfo.casename,
-        bodyWeight: stairInfo.caseweight,
-        address: stairInfo.caseaddress,
-      };
-      // floorTableInfo
-      const newFloorTableInfo = {
-        floorNumber: parseInt(stairInfo.totalfloors) + 1,
-        specialFloor: {
-          haveSpecialFloor: stairInfo.isspecialfloors,
-          haveSpecialFloorClass: "have-special-floor",
-          noSpecialFloor: "no-special-floor none",
-        },
-        floorInfo: [],
-      };
-      //新增各個樓層資訊
-      for (let i = 0; i < stairInfo.floorinfo.length; i++) {
-        let newFloorName = i + 1 + "F ↹ " + (i + 2) + "F";
-        let nowFloorInfo = stairInfo.floorinfo[i];
-        newFloorTableInfo.floorInfo.push({
-          floorName: newFloorName,
-          floorUpStep: {
-            stepNumber: "",
-            firstStepInfo: [],
-            otherStepInfo: [],
-            turnPlatform: [],
+    //如果不是新增表單(修改既有表單)，用stairId打Api取得值後填入
+    if (stairId !== "New") {
+      getStairInfoById(stairId).then((response) => {
+        const stairInfo = response.stairinfo;
+        console.log(stairInfo);
+        //基本資料
+        const newStairBasicInfo = {
+          caseName: stairInfo.casename,
+          bodyWeight: stairInfo.caseweight,
+          address: stairInfo.caseaddress,
+        };
+        // floorTableInfo
+        const newFloorTableInfo = {
+          floorNumber: stairInfo.totalfloors,
+          specialFloor: {
+            haveSpecialFloor: stairInfo.isspecialfloors,
+            haveSpecialFloorClass: "have-special-floor",
+            noSpecialFloor: "no-special-floor none",
           },
-          floorDownStep: {
-            stepNumber: 3,
-            firstStepInfo: [
-              {
-                stepName: "1",
-                stepWidth: "",
-                stepHeight: "",
-                isStepHeightOver: false,
-              },
-            ],
-            otherStepInfo: [
-              {
-                stepName: "2",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-              {
-                stepName: "3",
-                stepHeight: "",
-                stepHypotenuse: "",
-                stepAngle: "",
-                isStepHeightOver: false,
-                isStepHypotenuseOver: false,
-                isStepAngleOver: false,
-              },
-            ],
-            turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-          },
-        });
+          floorInfo: [],
+        };
+        // otherQuestionInfo
+        const newOtherQuestionInfo = {
+          stepRounded: stairInfo.isrounddegreesmallerthanthreshold,
+          stepDeep: stairInfo.isstepsdeepmorethanthreshold,
+          stepSpecial: stairInfo.isspecialfloors,
+        };
 
-        //新增這一層樓的 第一階 ＊目前只新增上半層
-        newFloorTableInfo.floorInfo[i].floorUpStep.firstStepInfo.push({
-          stepName: "1",
-          stepWidth: nowFloorInfo.stepinfo[0].stepwidth,
-          stepHeight: nowFloorInfo.stepinfo[0].stepheight,
-          isStepHeightOver: false,
-        });
-        //新增這一層樓的 其他階 ＊目前只新增上半層
-        for (let j = 1; j < nowFloorInfo.stepinfo.length; j++) {
-          newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.push({
-            stepName: j + 1,
-            stepHeight: nowFloorInfo.stepinfo[j].stepheight,
-            stepHypotenuse: nowFloorInfo.stepinfo[j].stephypotenuse,
-            stepAngle: nowFloorInfo.stepinfo[j].stepangle,
-            isStepHeightOver: false,
-            isStepHypotenuseOver: false,
-            isStepAngleOver: false,
+        //新增各個樓層資訊
+        for (let i = 0; i < stairInfo.floorinfo.length; i++) {
+          let newFloorName = i + 1 + "F ↹ " + (i + 2) + "F";
+          let nowFloorInfo = stairInfo.floorinfo[i];
+          newFloorTableInfo.floorInfo.push({
+            floorName: newFloorName,
+            floorUpStep: {
+              stepNumber: "",
+              firstStepInfo: [],
+              otherStepInfo: [],
+              turnPlatform: [],
+            },
+            floorDownStep: {
+              stepNumber: 3,
+              firstStepInfo: [
+                {
+                  stepName: "1",
+                  stepWidth: "",
+                  stepHeight: "",
+                  isStepHeightOver: false,
+                },
+              ],
+              otherStepInfo: [
+                {
+                  stepName: "2",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+                {
+                  stepName: "3",
+                  stepHeight: "",
+                  stepHypotenuse: "",
+                  stepAngle: "",
+                  isStepHeightOver: false,
+                  isStepHypotenuseOver: false,
+                  isStepAngleOver: false,
+                },
+              ],
+              turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
+            },
           });
-          //如果是最後一階，且階數<=15 -> 新增空的一階
-          if (
-            j === nowFloorInfo.stepinfo.length - 1 &&
-            nowFloorInfo.stepinfo.length <= 15
-          ) {
-            // console.log("add a step!");
+
+          //新增這一層樓的 第一階 ＊目前只新增上半層
+          // 第一階b1>20 isStepHeightOver: true
+          let isStepHeightOver = nowFloorInfo.stepinfo[0].stepheight > 20;
+          newFloorTableInfo.floorInfo[i].floorUpStep.firstStepInfo.push({
+            stepName: "1",
+            stepWidth: nowFloorInfo.stepinfo[0].stepwidth,
+            stepHeight: nowFloorInfo.stepinfo[0].stepheight,
+            isStepHeightOver: isStepHeightOver,
+          });
+          //新增這一層樓的 其他階 ＊目前只新增上半層
+          for (let j = 1; j < nowFloorInfo.stepinfo.length; j++) {
+            let isStepHeightOver = nowFloorInfo.stepinfo[j].stepheight > 22;
+            let isStepHypotenuseOver =
+              nowFloorInfo.stepinfo[j].stephypotenuse > 34;
+            let isStepAngleOver = nowFloorInfo.stepinfo[j].stepangle > 40;
             newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.push({
-              stepName: j + 2,
-              stepHeight: "",
-              stepHypotenuse: "",
-              stepAngle: "",
+              stepName: j + 1,
+              stepHeight: nowFloorInfo.stepinfo[j].stepheight,
+              stepHypotenuse: nowFloorInfo.stepinfo[j].stephypotenuse,
+              stepAngle: nowFloorInfo.stepinfo[j].stepangle,
               isStepHeightOver: false,
-              isStepHypotenuseOver: false,
-              isStepAngleOver: false,
+              isStepHypotenuseOver: isStepHypotenuseOver,
+              isStepAngleOver: isStepAngleOver,
             });
+            //如果是最後一階，且階數<=15 -> 新增空的一階
+            if (
+              j === nowFloorInfo.stepinfo.length - 1 &&
+              nowFloorInfo.stepinfo.length <= 15
+            ) {
+              // console.log("add a step!");
+              newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.push({
+                stepName: j + 2,
+                stepHeight: "",
+                stepHypotenuse: "",
+                stepAngle: "",
+                isStepHeightOver: false,
+                isStepHypotenuseOver: false,
+                isStepAngleOver: false,
+              });
+            }
           }
+          //新增這一層樓的 迴轉平台 ＊目前只新增上半層
+          newFloorTableInfo.floorInfo[i].floorUpStep.turnPlatform.push({
+            g1: nowFloorInfo.turnplatforminfo.g1 || "",
+            g2: nowFloorInfo.turnplatforminfo.g2 || "",
+            g3g4: nowFloorInfo.turnplatforminfo.g3plusg4 || "",
+            g3: nowFloorInfo.turnplatforminfo.g3 || "",
+            g4: nowFloorInfo.turnplatforminfo.g4 || "",
+          });
+          //新增這一層樓的 總階數（用於顯示） ＊目前只新增上半層
+          newFloorTableInfo.floorInfo[i].floorUpStep.stepNumber =
+            newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.length + 1;
         }
-        //新增這一層樓的 迴轉平台 ＊目前只新增上半層
-        newFloorTableInfo.floorInfo[i].floorUpStep.turnPlatform.push({
-          g1: nowFloorInfo.turnplatforminfo.g1 || "",
-          g2: nowFloorInfo.turnplatforminfo.g2 || "",
-          g3g4: nowFloorInfo.turnplatforminfo.g3g4 || "",
-          g3: nowFloorInfo.turnplatforminfo.g3 || "",
-          g4: nowFloorInfo.turnplatforminfo.g4 || "",
-        });
-        //新增這一層樓的 總階數（用於顯示） ＊目前只新增上半層
-        newFloorTableInfo.floorInfo[i].floorUpStep.stepNumber =
-          newFloorTableInfo.floorInfo[i].floorUpStep.otherStepInfo.length + 1;
-      }
-      console.log(newFloorTableInfo);
-      //設定資料
-      setStairBasicInfo(newStairBasicInfo);
-      setFloorTableInfo(newFloorTableInfo);
-    });
+        console.log(newFloorTableInfo);
+        //設定資料
+        setStairBasicInfo(newStairBasicInfo);
+        setFloorTableInfo(newFloorTableInfo);
+        setOtherQuestionInfo(newOtherQuestionInfo);
+      });
+    }
   }, []);
 
   // 功能設定 //
@@ -975,6 +993,24 @@ function StairEditor() {
     };
     setSubmitMessage(initialSubmitMessage);
   }
+
+  //將要更新(新增)的樓梯資料轉為後端需要的形式
+  function stairDataToBackend(stairData) {
+    // 2023-02-17: 待確認後段資料
+    const stairDataBackend = {
+      stairinfo: {
+        stairid: stairId,
+        casename: stairData.stairBasicInfo.caseName,
+        caseweight: stairData.stairBasicInfo.bodyWeight,
+        totalfloors: stairData.floorTableInfo.floorNumber,
+        isrounddegreesmallerthanthreshold:
+          stairData.otherQuestionInfo.stepRounded,
+        isstepsdeepmorethanthreshold: stairData.otherQuestionInfo.stepDeep,
+        isspecialfloors: stairData.otherQuestionInfo.stepSpecial,
+      },
+    };
+  }
+
   return (
     <>
       <main>

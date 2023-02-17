@@ -284,7 +284,7 @@ function TurnPlatform(props) {
               type="number"
               placeholder="108"
               id={props.indexToId(g1Index)}
-              value={props.turnPlatform.g1}
+              value={props.turnPlatform[0].g1}
               onChange={(e) => props.handleChange(e, g1Index)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g1Index)}
             />
@@ -296,7 +296,7 @@ function TurnPlatform(props) {
               type="number"
               placeholder="107"
               id={props.indexToId(g2Index)}
-              value={props.turnPlatform.g2}
+              value={props.turnPlatform[0].g2}
               onChange={(e) => props.handleChange(e, g2Index)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g2Index)}
             />
@@ -308,7 +308,7 @@ function TurnPlatform(props) {
               type="number"
               placeholder="202.5"
               id={props.indexToId(g3g4Index)}
-              value={props.turnPlatform.g3g4}
+              value={props.turnPlatform[0].g3g4}
               onChange={(e) => props.handleChange(e, g3g4Index)}
             />
           </div>
@@ -319,7 +319,7 @@ function TurnPlatform(props) {
               type="number"
               placeholder=""
               id={props.indexToId(g3Index)}
-              value={props.turnPlatform.g3}
+              value={props.turnPlatform[0].g3}
               onChange={(e) => props.handleChange(e, g3Index)}
             />
           </div>
@@ -330,7 +330,7 @@ function TurnPlatform(props) {
               type="number"
               placeholder=""
               id={props.indexToId(g4Index)}
-              value={props.turnPlatform.g4}
+              value={props.turnPlatform[0].g4}
               onChange={(e) => props.handleChange(e, g4Index)}
             />
           </div>

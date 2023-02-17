@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function StairListSystemMessage(props) {
+  let deleteStairId = props.deleteItemMessage.deleteStairId;
   return (
     <section
       className={
@@ -22,7 +22,7 @@ function StairListSystemMessage(props) {
             <button
               type="button"
               className="ok"
-              onClick={() => props.closeMessageCard()}
+              onClick={() => props.deleteItem(deleteStairId)}
             >
               確定
             </button>

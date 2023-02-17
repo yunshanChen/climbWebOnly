@@ -4,6 +4,7 @@ import { setStairId } from "../utils";
 
 function StairsListTableItem(props) {
   let deleteMsg = props.createAt + " " + props.time + " " + props.name;
+  let stairId = props.stairId;
   let printItemId = props.createAt + "-" + props.name;
 
   //跳轉
@@ -11,7 +12,7 @@ function StairsListTableItem(props) {
 
   //「修改」時需要設定localStorage
   function editStair() {
-    setStairId(props.id);
+    setStairId(stairId);
     navigate("/stairEditor");
   }
 
@@ -46,7 +47,7 @@ function StairsListTableItem(props) {
         <button
           type="button"
           className="btn-delete"
-          onClick={() => props.clickDeleteItem(deleteMsg)}
+          onClick={() => props.clickDeleteItem(deleteMsg, stairId)}
         >
           刪除
         </button>

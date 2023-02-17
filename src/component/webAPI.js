@@ -45,7 +45,7 @@ export function getMe() {
     });
 }
 
-//樓梯列表stairList
+//樓梯列表stairList 取得列表資料
 export function getStairInfo() {
   const token = getAuthToken();
   const stairInfoUrl = fetchUrl + "stairinfo/v1/list";
@@ -65,7 +65,28 @@ export function getStairInfo() {
     });
 }
 
-//樓梯記錄表stairEditor
+//樓梯列表stairList 刪除資料
+export function deleteStairInfo(stairId) {
+  const token = getAuthToken();
+  const stairInfoUrl =
+    fetchUrl + "stairinfo/v1/stairinfo/delete?stairid=" + stairId;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + token);
+
+  var requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+  return fetch(stairInfoUrl, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.log("error", error);
+    });
+}
+
+//樓梯記錄表stairEditor 取得記錄表資料
 export function getStairInfoById(stairId) {
   const token = getAuthToken();
   const stairInfoByIdUrl =
