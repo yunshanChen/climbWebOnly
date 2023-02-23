@@ -45,6 +45,27 @@ export function getMe() {
     });
 }
 
+//帳戶資訊account 修改密碼
+export function changePassword(pwdData) {
+  const token = getAuthToken();
+  const changePasswordUrl = fetchUrl + "user/v1/changepassword";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + token);
+
+  var requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    redirect: "follow",
+    body: pwdData,
+  };
+  return fetch(changePasswordUrl, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.log("error", error);
+    });
+}
+
 //樓梯列表stairList 取得列表資料
 export function getStairInfo() {
   const token = getAuthToken();

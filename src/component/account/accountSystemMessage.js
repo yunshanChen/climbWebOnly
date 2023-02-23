@@ -15,9 +15,10 @@ function AccountSystemMessage(props) {
         </div>
         <div className="card-txt">
           <div className="message-txt">
-            {props.changePwdMessage.isChangePwdSuccess
+            {(props.changePwdMessage.isChangePwdSuccess
               ? "修改密碼成功！"
-              : "修改密碼失敗！"}
+              : "修改密碼失敗！") +
+              (props.changePwdMessage.backendMessage || "")}
           </div>
           <div className="message-buttons">
             <button

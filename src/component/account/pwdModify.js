@@ -13,12 +13,34 @@ function PwdModify(props) {
       <div className="card-txt">
         <form onSubmit={(e) => submitHandler(e)}>
           <div className="input-group">
+            <label htmlFor="old-password"> 目前密碼 </label>
+            <input
+              type="password"
+              id="old-password"
+              placeholder="請輸入目前密碼"
+              value={props.pwdInput.oldPassword}
+              onChange={(e) => props.handlePwdChange(e, "oldPassword")}
+            />
+          </div>
+          <div className="input-group">
             <label htmlFor="user-name"> 新密碼 </label>
-            <input type="password" id="user-name" placeholder="請輸入新密碼" />
+            <input
+              type="password"
+              id="user-name"
+              placeholder="請輸入新密碼"
+              value={props.pwdInput.newPassword}
+              onChange={(e) => props.handlePwdChange(e, "newPassword")}
+            />
           </div>
           <div className="input-group">
             <label htmlFor="password"> 再次輸入密碼 </label>
-            <input type="password" id="password" placeholder="請再次輸入密碼" />
+            <input
+              type="password"
+              id="password"
+              placeholder="請再次輸入密碼"
+              value={props.pwdInput.newPasswordConfirm}
+              onChange={(e) => props.handlePwdChange(e, "newPasswordConfirm")}
+            />
           </div>
           <button
             type="button"
