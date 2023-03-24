@@ -104,10 +104,7 @@ export default PreviewTableOtherStep;
 
 //將傳入的值取到小數點下一位（或自動補０）
 function valueToDeciaml1(value) {
-  if (value === "") {
-    //如果是空值，直接回傳
-    return value;
-  } else {
+  if (value) {
     //是數字
     if (value.toString().includes(".")) {
       //如果有小數點
@@ -126,16 +123,14 @@ function valueToDeciaml1(value) {
 }
 //傳入的值取小數點下第二位
 function valueToDeciaml2(value) {
-  if (value === "") {
-    //如果是空值，直接回傳
-    return value;
-  } else {
+  if (value) {
     //是數字
     if (value.toString().includes(".")) {
       //如果有小數點，取小數點下二位
       value = Math.round(value * 100) / 100;
       //取出小數點後字串
       let afterDecimalStr = value.toString().split(".")[1];
+      console.log(afterDecimalStr);
       if (afterDecimalStr.length === 1) {
         //如果小數點後字串只有一位 ex. 20.5 -> 20.50
         value += "0";

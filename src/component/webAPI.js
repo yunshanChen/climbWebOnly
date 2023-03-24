@@ -4,25 +4,18 @@ const fetchUrl = "http://10.0.11.24:8080/";
 
 //登入
 export function fetchLogin(account, password) {
-  const loginUrl = fetchUrl + "user/v1/login";
-
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
-    email: account /* ccc@gmail.com */,
-    password: password /* ccc */,
-  });
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
+  if (account === "aaa@gmail.com" && password === "aaa") {
+    return {
+      isLogin: true,
+      token: "tttt14325asdzxcv612t",
+      name: "aaa",
+      message: "登入成功",
+    };
+  }
+  return {
+    isLogin: false,
+    message: "登入失敗",
   };
-  return fetch(loginUrl, requestOptions)
-    .then((response) => response.json())
-    .catch((error) => console.log("error", error));
 }
 
 //身份認證

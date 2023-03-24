@@ -36,7 +36,10 @@ function PrintPDFInfo(props) {
   return (
     <div className="print-PDF-info" ref={props.pdfRef}>
       {previewTable}
-      <SuitableClimber suitableClimbers={suitableClimbers} />
+      <SuitableClimber
+        caseName={stairBasicInfo.caseName}
+        suitableClimbers={suitableClimbers}
+      />
     </div>
   );
 }

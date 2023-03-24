@@ -2,33 +2,30 @@ import { useNavigate, Outlet } from "react-router-dom";
 import Footer from "./component/footer";
 import Header from "./component/header";
 
-import AuthContext from "./component/contexts";
+import { AuthContext, StairDataContext } from "./component/contexts";
 import { useEffect, useState } from "react";
 import { getAuthToken } from "./component/utils";
-import { getMe } from "./component/webAPI";
 
 function Layout() {
   const navigate = useNavigate();
   //紀錄登入狀態， user有值代表有登入
   const [user, setUser] = useState(null);
+  //樓梯資料紀錄
+  const [stairData, setStairData] = useState("");
 
   useEffect(() => {
     //如果有token的話，判斷使用者
     if (getAuthToken()) {
-      getMe().then((response) => {
-        if (response.message === "取得成功") {
-          setUser(response.name);
-          // 跳轉stairList畫面
-          navigate("/stairList");
-        }
-      });
+      navigate("/stairEditor");
     }
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <Header />
-      <Outlet />
+      <StairDataContext.Provider value={{ stairData, setStairData }}>
+        <Outlet stairData={stairData} setStairData={setStairData} />
+      </StairDataContext.Provider>
       <Footer />
     </AuthContext.Provider>
   );

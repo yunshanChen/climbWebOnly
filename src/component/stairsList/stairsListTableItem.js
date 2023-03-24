@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { setStairId } from "../utils";
 
 function StairsListTableItem(props) {
-  let deleteMsg = props.createAt + " " + props.time + " " + props.name;
   let stairId = props.stairId;
   let printItemId = props.createAt + "-" + props.name;
 
@@ -44,11 +43,7 @@ function StairsListTableItem(props) {
         >
           修改
         </button>
-        <button
-          type="button"
-          className="btn-delete"
-          onClick={() => props.clickDeleteItem(deleteMsg, stairId)}
-        >
+        <button type="button" className="btn-delete">
           刪除
         </button>
       </td>

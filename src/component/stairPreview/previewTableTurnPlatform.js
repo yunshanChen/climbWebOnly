@@ -50,7 +50,7 @@ export default PreviewTableTurnPlatform;
 
 //將傳入的值取到小數點下一位（或自動補０）
 function valueToDeciaml1(value) {
-  if (value === "") {
+  if (!value) {
     //如果是空值，直接回傳
     return value;
   } else {

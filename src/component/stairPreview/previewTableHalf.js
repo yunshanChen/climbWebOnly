@@ -11,7 +11,9 @@ function PreviewTableHalf(props) {
       <PreviewTableOtherStep
         stepName={i + 2}
         otherStepInfoFirst={props.floorInfoFirst.otherStepInfo[i]}
-        otherStepInfoSecond={props.floorInfoSecond.otherStepInfo[i]}
+        otherStepInfoSecond={
+          props.floorInfoSecond ? props.floorInfoSecond.otherStepInfo[i] : ""
+        }
         key={"previewTableOtherStep" + i}
       />
     );
@@ -21,13 +23,17 @@ function PreviewTableHalf(props) {
     <>
       <PreviewTableFirstStep
         firstStepInfoFirst={props.floorInfoFirst.firstStepInfo[0]}
-        firstStepInfoSecond={props.floorInfoSecond.firstStepInfo[0]}
+        firstStepInfoSecond={
+          props.floorInfoSecond ? props.floorInfoSecond.firstStepInfo[0] : ""
+        }
       />
       {otherSteps}
       <PreviewTableTurnPlatform
         upDown={props.upDown}
         turnPlatformFirst={props.floorInfoFirst.turnPlatform[0]}
-        turnPlatformSecond={props.floorInfoSecond.turnPlatform[0]}
+        turnPlatformSecond={
+          props.floorInfoSecond ? props.floorInfoSecond.turnPlatform[0] : ""
+        }
       />
     </>
   );

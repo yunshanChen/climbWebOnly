@@ -14,7 +14,6 @@ function StairsListTable(props) {
         name={nowItem.name}
         stairId={nowItem.stairId}
         handleDownload={props.handleDownload}
-        clickDeleteItem={props.clickDeleteItem}
         key={i}
       />
     );

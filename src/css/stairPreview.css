@@ -123,6 +123,10 @@ section.stair-preview {
   border-bottom: 4px solid #000; /* border-bottom: 2px solid #000; */
   box-sizing: border-box;
 }
+.tables-page .preview-table .turn-platform td {
+  box-sizing: border-box;
+  height: 47px;
+}
 /* tfoot */
 .tables-page .preview-table tfoot {
   text-align: left;

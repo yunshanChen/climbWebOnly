@@ -45,7 +45,9 @@ function previewTableFirstPage(props) {
               </th>
               {/* <!-- 第二個樓層 --> */}
               <th colSpan="5" className="floor-name">
-                {props.floorInfoSecondFloor.floorName}
+                {props.floorInfoSecondFloor
+                  ? props.floorInfoSecondFloor.floorName
+                  : ""}
               </th>
             </tr>
             <tr>
@@ -97,13 +99,21 @@ function previewTableFirstPage(props) {
             <PreviewTableHalf
               upDown={"floorUpStep"}
               floorInfoFirst={props.floorInfoFirstFloor.floorUpStep}
-              floorInfoSecond={props.floorInfoSecondFloor.floorUpStep}
+              floorInfoSecond={
+                props.floorInfoSecondFloor
+                  ? props.floorInfoSecondFloor.floorUpStep
+                  : ""
+              }
             />
             {/* <!-- 轉彎後 --> */}
             <PreviewTableHalf
               upDown={"floorDownStep"}
               floorInfoFirst={props.floorInfoFirstFloor.floorDownStep}
-              floorInfoSecond={props.floorInfoSecondFloor.floorDownStep}
+              floorInfoSecond={
+                props.floorInfoSecondFloor
+                  ? props.floorInfoSecondFloor.floorDownStep
+                  : ""
+              }
             />
           </tbody>
           <PreviewTableFoot otherQuestionInfo={props.otherQuestionInfo} />

@@ -30,9 +30,7 @@ function LoginSystemMessage(props) {
         </div>
         <div className="card-txt">
           <div className="message-txt">
-            {props.loginMessage.isLoginSuccess
-              ? "登入成功！"
-              : "登入失敗！" + props.loginMessage.backendMessage}
+            {props.loginMessage.isLoginSuccess ? "登入成功！" : "登入失敗！"}
           </div>
           <div className="message-buttons">{loginMsgButton}</div>
         </div>

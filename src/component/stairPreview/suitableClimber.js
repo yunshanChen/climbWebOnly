@@ -17,7 +17,7 @@ function SuitableClimber(props) {
     <section className="suitable-climber print">
       <div className="title">新北市輔具資源中心</div>
       <div className="say-hello">
-        <span className="case-name">王小美</span>先生/小姐您好：
+        <span className="case-name">{props.caseName}</span>先生/小姐您好：
       </div>
       <div className="suitable-txt">
         經輔具中心評估結果，您的居家環境符合使用以下機型：
