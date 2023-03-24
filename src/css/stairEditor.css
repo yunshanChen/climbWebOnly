@@ -2,6 +2,19 @@
 .stair-editor {
   display: flex;
 }
+.stair-editor .card-top {
+  display: flex;
+  align-items: center;
+}
+.stair-editor .card-top .reset {
+  margin-left: auto;
+  background-color: var(--btn-red);
+  color: white;
+}
+.stair-editor .card-top .reset:hover {
+  background-color: var(--btn-red-hover);
+  cursor: pointer;
+}
 /* card-txt */
 .stair-editor .card .card-txt {
   padding: 0px 10px;

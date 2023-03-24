@@ -40,33 +40,29 @@ function StairEditorSystemMessage(props) {
             <ul className="message-list">{messageList}</ul>
           </div>
           <div className="message-buttons">
-            <button
-              type="button"
-              className={
-                props.submitMessage.isSubmitSuccess
-                  ? "show-print-preview"
-                  : "show-print-preview none"
-              }
-            >
-              <Link to="/stairPreview">預覽列印</Link>
-            </button>
-            <button
-              type="button"
-              className={
-                props.submitMessage.isSubmitSuccess
-                  ? "back-to-stair-editor"
-                  : "back-to-stair-editor none"
-              }
-            >
-              <Link to="/stairList">回樓梯表單</Link>
-            </button>
-            <button
-              type="button"
-              className={props.submitMessage.isSubmitSuccess ? "ok none" : "ok"}
-              onClick={props.closeMessageCardClick}
-            >
-              確認
-            </button>
+            {props.submitMessage.isSubmitSuccess && (
+              <button type="button" className="show-print-preview">
+                <Link to="/stairPreview">預覽列印</Link>
+              </button>
+            )}
+            {props.submitMessage.isSubmitSuccess && (
+              <button
+                type="button"
+                className="back-to-stair-editor"
+                onClick={props.closeMessageCardClick}
+              >
+                回樓梯表單
+              </button>
+            )}
+            {!props.submitMessage.isSubmitSuccess && (
+              <button
+                type="button"
+                className="ok"
+                onClick={props.closeMessageCardClick}
+              >
+                確認
+              </button>
+            )}
           </div>
         </div>
       </div>

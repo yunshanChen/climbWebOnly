@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { StairDataContext } from "../component/contexts";
+import React, { useContext, useEffect, useState } from "react";
+import { stairData, StairDataContext } from "../component/contexts";
 import FloorEditor from "../component/stairEditor/floorEditor";
 import OtherEditor from "../component/stairEditor/otherEditor";
 import StairEditorBasic from "../component/stairEditor/stairEditorBasic";
@@ -8,6 +8,7 @@ import "../css/stairEditor.css";
 
 function StairEditor() {
   const { setStairData } = useContext(StairDataContext);
+  const { stairData } = useContext(StairDataContext);
   // 資料設定 //
   // stairBasicInfo
   const [stairBasicInfo, setStairBasicInfo] = useState({
@@ -32,7 +33,14 @@ function StairEditor() {
     stepDeep: false,
     stepSpecial: false,
   });
-
+  useEffect(() => {
+    //如果有樓梯表單的值就放進去，沒有就重設
+    if (stairData) {
+      setStairBasicInfo(stairData.stairBasicInfo);
+      setFloorTableInfo(stairData.floorTableInfo);
+      setOtherQuestionInfo(stairData.otherQuestionInfo);
+    }
+  }, []);
   // 功能設定 //
   // stairBasicInfo -> 資料監聽
   function handleBasicInfoChange(e, changeTitle) {
@@ -854,6 +862,31 @@ function StairEditor() {
     };
     setSubmitMessage(initialSubmitMessage);
   }
+  function resetForm() {
+    // 資料設定 //
+    // stairBasicInfo
+    setStairBasicInfo({
+      caseName: "",
+      bodyWeight: "",
+      address: "",
+    });
+    // floorTableInfo 預設：沒有樓層
+    setFloorTableInfo({
+      floorNumber: "",
+      specialFloor: {
+        haveSpecialFloor: false,
+        haveSpecialFloorClass: "have-special-floor",
+        noSpecialFloor: "no-special-floor none",
+      },
+      floorInfo: [],
+    });
+    // 其他問題
+    setOtherQuestionInfo({
+      stepRounded: false,
+      stepDeep: false,
+      stepSpecial: false,
+    });
+  }
 
   return (
     <>
@@ -862,6 +895,9 @@ function StairEditor() {
           <div className="card">
             <div className="card-top">
               <div className="card-title">垂直通路：一般樓梯記錄表</div>
+              <button className="reset" onClick={() => resetForm()}>
+                重設
+              </button>
             </div>
             <div className="card-txt">
               <form onSubmit={(e) => submitHandler(e)}>
