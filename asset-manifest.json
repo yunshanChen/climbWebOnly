@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/yunshanChen/climbWebOnly/static/css/main.143c2e4f.css",
+    "main.js": "/yunshanChen/climbWebOnly/static/js/main.e9031427.js",
+    "static/js/498.a56d48d6.chunk.js": "/yunshanChen/climbWebOnly/static/js/498.a56d48d6.chunk.js",
+    "static/js/703.b2b043e9.chunk.js": "/yunshanChen/climbWebOnly/static/js/703.b2b043e9.chunk.js",
+    "static/js/919.037905dc.chunk.js": "/yunshanChen/climbWebOnly/static/js/919.037905dc.chunk.js",
+    "static/js/787.2f7e9a95.chunk.js": "/yunshanChen/climbWebOnly/static/js/787.2f7e9a95.chunk.js",
+    "index.html": "/yunshanChen/climbWebOnly/index.html",
+    "main.143c2e4f.css.map": "/yunshanChen/climbWebOnly/static/css/main.143c2e4f.css.map",
+    "main.e9031427.js.map": "/yunshanChen/climbWebOnly/static/js/main.e9031427.js.map",
+    "498.a56d48d6.chunk.js.map": "/yunshanChen/climbWebOnly/static/js/498.a56d48d6.chunk.js.map",
+    "703.b2b043e9.chunk.js.map": "/yunshanChen/climbWebOnly/static/js/703.b2b043e9.chunk.js.map",
+    "919.037905dc.chunk.js.map": "/yunshanChen/climbWebOnly/static/js/919.037905dc.chunk.js.map",
+    "787.2f7e9a95.chunk.js.map": "/yunshanChen/climbWebOnly/static/js/787.2f7e9a95.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.143c2e4f.css",
+    "static/js/main.e9031427.js"
+  ]
+}
