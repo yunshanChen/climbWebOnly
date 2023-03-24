@@ -1,5 +1,4 @@
 import { useNavigate, Outlet } from "react-router-dom";
-import Footer from "./component/footer";
 import Header from "./component/header";
 
 import { AuthContext, StairDataContext } from "./component/contexts";
@@ -26,7 +25,6 @@ function Layout() {
       <StairDataContext.Provider value={{ stairData, setStairData }}>
         <Outlet stairData={stairData} setStairData={setStairData} />
       </StairDataContext.Provider>
-      <Footer />
     </AuthContext.Provider>
   );
 }

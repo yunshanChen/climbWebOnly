@@ -22,14 +22,6 @@ function Header() {
   if (user) {
     navbarList = (
       <>
-        <ul className="navbar-list">
-          <li className="nav-item">
-            <Link to="/stairList"> 樓梯列表</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/account">帳戶資訊</Link>
-          </li>
-        </ul>
         <button
           type="button"
           className="btn-logout"

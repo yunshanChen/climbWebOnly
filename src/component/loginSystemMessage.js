@@ -5,7 +5,7 @@ import "../css/systemMessage.css";
 function LoginSystemMessage(props) {
   let loginMsgButton = props.loginMessage.isLoginSuccess ? (
     <button type="button" className="ok">
-      <Link to="/stairList">確定</Link>
+      <Link to="/stairEditor">確定</Link>
     </button>
   ) : (
     <button

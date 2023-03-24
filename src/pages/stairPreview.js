@@ -26,14 +26,14 @@ function StairPreview() {
   const printPageNumber = stairData.floorTableInfo.specialFloor.haveSpecialFloor
     ? parseInt(stairData.floorTableInfo.floorNumber + 1) / 2 + 1
     : parseInt(stairData.floorTableInfo.floorNumber) / 2 + 1;
+  const printFileName = stairData.stairBasicInfo.caseName + ".pdf";
   console.log(stairData);
-  console.log(printPageNumber);
   //下載loading畫面
   const capooList = useMemo(() => {
     return [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];
   }, []);
   // const [downloading, loadingCover] = useDownloadPDF(pdfRef);
-  const [downloading] = useDownloadPDF(pdfRef, printPageNumber);
+  const [downloading] = useDownloadPDF(pdfRef, printPageNumber, printFileName);
   const [loadingCover, setLoadingCover] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -80,7 +80,7 @@ export default StairPreview;
 
 //下載檔案
 //下載功能function
-const useDownloadPDF = (pdfRef, printPageNumber) => {
+const useDownloadPDF = (pdfRef, printPageNumber, printFileName) => {
   console.log("useDownloadPDF開始");
 
   //定義下載函式
@@ -123,7 +123,7 @@ const useDownloadPDF = (pdfRef, printPageNumber) => {
               responsePDF.addPage();
             }
           }
-          responsePDF.save("test.pdf");
+          responsePDF.save(printFileName);
           console.log("下載結束");
           setIsDownloading(false);
 

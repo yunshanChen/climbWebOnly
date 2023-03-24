@@ -4,11 +4,11 @@ const fetchUrl = "http://10.0.11.24:8080/";
 
 //登入
 export function fetchLogin(account, password) {
-  if (account === "aaa@gmail.com" && password === "aaa") {
+  if (account === "climber@gmail.com" && password === "climberIsGood") {
     return {
       isLogin: true,
       token: "tttt14325asdzxcv612t",
-      name: "aaa",
+      name: "climber",
       message: "登入成功",
     };
   }
