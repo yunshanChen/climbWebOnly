@@ -8,8 +8,9 @@
 2. page 的元件位於 src/component/page 名稱 內。
 3. page 的 css 位於 src/css/page 名稱 內。
 4. 網站所需的圖片位於 src/img 內
-5. 網站路由(react-rounte)寫在 src/App.js 內。
+5. 網站路由(react-route)寫在 src/App.js 內。
 6. 因有固定的 header，於 src/layout.js 內使用 header.js
+7. 計算方式位於src/component/caculate.js
 
 # Getting Started with Create React App
 
