@@ -4,6 +4,7 @@ import FloorEditor from "../component/stairEditor/floorEditor";
 import OtherEditor from "../component/stairEditor/otherEditor";
 import StairEditorBasic from "../component/stairEditor/stairEditorBasic";
 import StairEditorSystemMessage from "../component/stairEditor/stairEditorSystemMessage";
+import { getAngleByHypotenuse } from "../component/caculate";
 import "../css/stairEditor.css";
 
 function StairEditor() {
@@ -356,12 +357,7 @@ function StairEditor() {
       let newAngle;
       // 斜邊長必須>高 才算角度
       if (nowHypotenuse > nowHeight) {
-        // 弧度 = asin(b/f)，1弧度 = 180/PI (度)
-        // Math.round(值＊100)/100 取小數點下第二位
-        newAngle =
-          Math.round(
-            ((Math.asin(nowHeight / nowHypotenuse) * 180) / Math.PI) * 100
-          ) / 100;
+        newAngle = getAngleByHypotenuse(nowHeight, nowHypotenuse);
       }
       //寫入資料
       newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex][

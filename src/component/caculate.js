@@ -1,4 +1,5 @@
-// 個個爬梯機的限制
+///// 根據樓梯資料判斷適用機型
+// 各個爬梯機的限制
 // otherQ中的問題：true表示有這個限制，false表示沒有這個限制
 const climberLimit = [
   {
@@ -399,4 +400,32 @@ export const getSuitableClimber = (stairData) => {
     suitableClimbers.push(climberRentList[climberRentList.length - 1]);
   }
   return suitableClimbers;
+};
+
+/////計算該階的傾角
+// 根據「斜邊長」計算傾角，回傳傾角
+export const getAngleByHypotenuse = (height, hypotenuse) => {
+  // 弧度 = asin(height/hypotenuse)，1弧度 = 180/PI (度)
+  let angle = (Math.asin(height / hypotenuse) * 180) / Math.PI;
+  return getDecimal2(angle);
+};
+// 根據「級深」計算傾角，回傳傾角
+// 取值方式：{angle, hypotenuse} = getAngleByDeep(height,deep)
+export const getAngleByDeep = (height, deep) => {
+  // 藉由高度深度計算斜邊長，並修正斜邊長
+  // 斜邊長 = 開根號（高度平方＋深度平方）
+  let hypotenuse = Math.sqrt(height ** 2 + deep ** 2);
+  let fixHypotenuse = roundToHalf(hypotenuse);
+  // 根據斜邊長與高度取得角度
+  let angle = getAngleByHypotenuse(height, fixHypotenuse);
+  return [angle, getDecimal2(fixHypotenuse)];
+};
+// 將一數值取小數點下第二位
+export const getDecimal2 = (number) => {
+  // Math.round(值＊100)/100 取小數點下第二位
+  return Math.round(number * 100) / 100;
+};
+// 將一數值取最接近的0.5或0，類似四捨五入(向下為主,ex 1.75->1.5)
+const roundToHalf = (number) => {
+  return Math.round(number * 2) / 2;
 };
