@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { stairData, StairDataContext } from "../component/contexts";
+import { StairDataContext } from "../component/contexts";
 import FloorEditor from "../component/stairEditor/floorEditor";
 import OtherEditor from "../component/stairEditor/otherEditor";
 import StairEditorBasic from "../component/stairEditor/stairEditorBasic";

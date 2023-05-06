@@ -24,7 +24,7 @@ function StairPreview() {
   //收到的資料
   const { stairData } = useContext(StairDataContext);
   const printPageNumber = stairData.floorTableInfo.specialFloor.haveSpecialFloor
-    ? parseInt(stairData.floorTableInfo.floorNumber + 1) / 2 + 1
+    ? (parseInt(stairData.floorTableInfo.floorNumber) + 1) / 2 + 1
     : parseInt(stairData.floorTableInfo.floorNumber) / 2 + 1;
   const printFileName = stairData.stairBasicInfo.caseName + ".pdf";
   console.log(stairData);
@@ -81,7 +81,7 @@ export default StairPreview;
 //下載檔案
 //下載功能function
 const useDownloadPDF = (pdfRef, printPageNumber, printFileName) => {
-  console.log("useDownloadPDF開始");
+  // console.log("useDownloadPDF開始");
 
   //定義下載函式
   const downloading = useCallback(
@@ -135,13 +135,13 @@ const useDownloadPDF = (pdfRef, printPageNumber, printFileName) => {
       };
 
       if (download === "download") {
-        console.log("下載開始");
+        // console.log("下載開始");
         handleDownload();
       }
     },
     [pdfRef]
   );
 
-  console.log("useDownloadPDF結束");
+  // console.log("useDownloadPDF結束");
   return [downloading];
 };

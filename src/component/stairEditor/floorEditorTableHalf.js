@@ -27,10 +27,16 @@ function FloorEditorTableHalf(props) {
       index.stepValueName;
     return id;
   }
-
+  function handleOnKeyDown(e) {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+    }
+  }
   function handleOnKeyUp(e, index) {
     // e.preventDefault();
-    if (e.key === "Enter") {
+    // keyCode=9(tab)
+    if (e.keyCode === 9) {
+      // if (e.key === "Enter") {
       //第一階
       if (index.stepClass === "firstStepInfo") {
         if (index.stepValueName === "stepWidth") {
@@ -111,6 +117,7 @@ function FloorEditorTableHalf(props) {
       stepNumber={stepNumber}
       firstStepInfo={props.firstStepInfo[0]}
       handleChange={props.handleChange}
+      handleOnKeyDown={handleOnKeyDown}
       handleOnKeyUp={handleOnKeyUp}
       floorIndex={firstStepIndex}
       indexToId={indexToId}
@@ -129,6 +136,7 @@ function FloorEditorTableHalf(props) {
         stepInfo={props.otherStepInfo[i]}
         floorIndex={otherStepIndex}
         handleChange={props.handleChange}
+        handleOnKeyDown={handleOnKeyDown}
         handleOnKeyUp={handleOnKeyUp}
         indexToId={indexToId}
         key={i}
@@ -144,6 +152,7 @@ function FloorEditorTableHalf(props) {
         turnPlatform={props.turnPlatform}
         floorIndex={turnPlatformIndex}
         handleChange={props.handleChange}
+        handleOnKeyDown={handleOnKeyDown}
         handleOnKeyUp={handleOnKeyUp}
         indexToId={indexToId}
       />
@@ -170,6 +179,7 @@ function FloorTableStepFirst(props) {
             id={props.indexToId(stepWidthIndex)}
             value={props.firstStepInfo.stepWidth}
             onChange={(e) => props.handleChange(e, stepWidthIndex)}
+            onKeyDown={(e) => props.handleOnKeyDown(e, stepWidthIndex)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepWidthIndex)}
           />
         </div>
@@ -182,6 +192,7 @@ function FloorTableStepFirst(props) {
             id={props.indexToId(stepHeightIndex)}
             value={props.firstStepInfo.stepHeight}
             onChange={(e) => props.handleChange(e, stepHeightIndex)}
+            onKeyDown={(e) => props.handleOnKeyDown(e)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepHeightIndex)}
             style={{ color: props.firstStepInfo.isStepHeightOver ? "red" : "" }}
           />
@@ -217,6 +228,7 @@ function FloorTableStepOther(props) {
             id={props.indexToId(stepHeightIndex)}
             value={props.stepInfo.stepHeight}
             onChange={(e) => props.handleChange(e, stepHeightIndex)}
+            onKeyDown={(e) => props.handleOnKeyDown(e)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepHeightIndex)}
             style={{
               backgroundColor: props.stepInfo.isStepHeightOver
@@ -234,6 +246,7 @@ function FloorTableStepOther(props) {
             id={props.indexToId(stepHypotenuseIndex)}
             value={props.stepInfo.stepHypotenuse}
             onChange={(e) => props.handleChange(e, stepHypotenuseIndex)}
+            onKeyDown={(e) => props.handleOnKeyDown(e)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepHypotenuseIndex)}
             style={{
               backgroundColor: props.stepInfo.isStepHypotenuseOver
@@ -286,6 +299,7 @@ function TurnPlatform(props) {
               id={props.indexToId(g1Index)}
               value={props.turnPlatform[0].g1}
               onChange={(e) => props.handleChange(e, g1Index)}
+              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g1Index)}
             />
           </div>
@@ -298,6 +312,7 @@ function TurnPlatform(props) {
               id={props.indexToId(g2Index)}
               value={props.turnPlatform[0].g2}
               onChange={(e) => props.handleChange(e, g2Index)}
+              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g2Index)}
             />
           </div>
@@ -331,6 +346,7 @@ function TurnPlatform(props) {
               placeholder=""
               id={props.indexToId(g4Index)}
               value={props.turnPlatform[0].g4}
+              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onChange={(e) => props.handleChange(e, g4Index)}
             />
           </div>
