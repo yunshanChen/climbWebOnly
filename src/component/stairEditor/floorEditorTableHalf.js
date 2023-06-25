@@ -35,6 +35,9 @@ function FloorEditorTableHalf(props) {
   function handleOnKeyUp(e, index) {
     // e.preventDefault();
     // keyCode=9(tab)
+    /////////samsung手機上的數字鍵盤「下一步」
+    /////////無法被監聽(handleOnKeyDown, handleOnKeyUp)到
+    // console.log(e.keyCode);
     if (e.keyCode === 9) {
       // if (e.key === "Enter") {
       //第一階
@@ -133,6 +136,7 @@ function FloorEditorTableHalf(props) {
     otherStepIndex.stepClassIndex = i;
     floorSteps.push(
       <FloorTableStepOther
+        mode={props.mode}
         stepInfo={props.otherStepInfo[i]}
         floorIndex={otherStepIndex}
         handleChange={props.handleChange}
@@ -168,6 +172,7 @@ function FloorTableStepFirst(props) {
   stepWidthIndex.stepValueName = "stepWidth";
   let stepHeightIndex = structuredClone(props.floorIndex);
   stepHeightIndex.stepValueName = "stepHeight";
+
   return (
     <tr>
       <th scope="row">第1階</th>
@@ -202,10 +207,12 @@ function FloorTableStepFirst(props) {
       <td></td>
       {/* 第一階傾角，固定沒有值 */}
       <td></td>
-      <td rowSpan={props.stepNumber}>
+      {/* <td rowSpan={props.stepNumber}>
         <div>是否皆</div>
         <div>≧12公分</div>
-      </td>
+      </td> */}
+      {/* 第一階級深固定沒有值 */}
+      <td></td>
     </tr>
   );
 }
@@ -217,6 +224,55 @@ function FloorTableStepOther(props) {
   stepHeightIndex.stepValueName = "stepHeight";
   let stepHypotenuseIndex = structuredClone(props.floorIndex);
   stepHypotenuseIndex.stepValueName = "stepHypotenuse";
+  let stepDeepIndex = structuredClone(props.floorIndex);
+  stepDeepIndex.stepValueName = "stepDeep";
+
+  // 級深的div
+  let stepDeepDiv = "";
+  // 斜邊長的div
+  let stepHypotenuseDiv = "";
+  if (props.mode === "deep") {
+    //深度模式
+    //深度：input
+    stepDeepDiv = (
+      <div className="input-group-table">
+        <input
+          type="number"
+          placeholder="級深測試"
+          id={props.indexToId(stepDeepIndex)}
+          value={props.stepInfo.stepDeep}
+          onChange={(e) => props.handleChange(e, stepDeepIndex)}
+          onKeyDown={(e) => props.handleOnKeyDown(e)}
+          onKeyUp={(e) => props.handleOnKeyUp(e, stepDeepIndex)}
+        />
+      </div>
+    );
+    //斜邊長：純數值
+    stepHypotenuseDiv = props.stepInfo.stepHypotenuse;
+  } else {
+    //斜邊長模式
+    //深度：空值
+    stepDeepDiv = "";
+    //斜邊長：input
+    stepHypotenuseDiv = (
+      <div className="input-group-table">
+        <input
+          type="number"
+          placeholder="3"
+          id={props.indexToId(stepHypotenuseIndex)}
+          value={props.stepInfo.stepHypotenuse}
+          onChange={(e) => props.handleChange(e, stepHypotenuseIndex)}
+          onKeyDown={(e) => props.handleOnKeyDown(e)}
+          onKeyUp={(e) => props.handleOnKeyUp(e, stepHypotenuseIndex)}
+          style={{
+            backgroundColor: props.stepInfo.isStepHypotenuseOver
+              ? "rgb(136,200,70)"
+              : "",
+          }}
+        />
+      </div>
+    );
+  }
   return (
     <tr>
       <th scope="row">第{props.stepInfo.stepName}階</th>
@@ -238,24 +294,8 @@ function FloorTableStepOther(props) {
           />
         </div>
       </td>
-      <td>
-        <div className="input-group-table">
-          <input
-            type="number"
-            placeholder="3"
-            id={props.indexToId(stepHypotenuseIndex)}
-            value={props.stepInfo.stepHypotenuse}
-            onChange={(e) => props.handleChange(e, stepHypotenuseIndex)}
-            onKeyDown={(e) => props.handleOnKeyDown(e)}
-            onKeyUp={(e) => props.handleOnKeyUp(e, stepHypotenuseIndex)}
-            style={{
-              backgroundColor: props.stepInfo.isStepHypotenuseOver
-                ? "rgb(136,200,70)"
-                : "",
-            }}
-          />
-        </div>
-      </td>
+      {/* 斜邊長 */}
+      <td>{stepHypotenuseDiv}</td>
       <td
         style={{
           backgroundColor: props.stepInfo.isStepAngleOver
@@ -265,6 +305,8 @@ function FloorTableStepOther(props) {
       >
         {props.stepInfo.stepAngle}
       </td>
+      {/* 級深 */}
+      <td>{stepDeepDiv}</td>
     </tr>
   );
 }

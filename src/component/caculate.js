@@ -412,13 +412,26 @@ export const getAngleByHypotenuse = (height, hypotenuse) => {
 // 根據「級深」計算傾角，回傳傾角
 // 取值方式：{angle, hypotenuse} = getAngleByDeep(height,deep)
 export const getAngleByDeep = (height, deep) => {
-  // 藉由高度深度計算斜邊長，並修正斜邊長
-  // 斜邊長 = 開根號（高度平方＋深度平方）
-  let hypotenuse = Math.sqrt(height ** 2 + deep ** 2);
-  let fixHypotenuse = roundToHalf(hypotenuse);
-  // 根據斜邊長與高度取得角度
-  let angle = getAngleByHypotenuse(height, fixHypotenuse);
-  return [angle, getDecimal2(fixHypotenuse)];
+  //兩者皆有值再計算
+  if (height && deep) {
+    // 藉由高度深度計算斜邊長，並修正斜邊長
+    // 斜邊長 = 開根號（高度平方＋深度平方）
+    let hypotenuse = Math.sqrt(height ** 2 + deep ** 2);
+    let fixHypotenuse = roundToHalf(hypotenuse);
+    // 根據斜邊長與高度取得角度
+    let angle = getAngleByHypotenuse(height, fixHypotenuse);
+    return [angle, getDecimal2(fixHypotenuse)];
+  } else {
+    return ["", ""];
+  }
+};
+export const getTriangleNumber = (floorTableInfo, floorIndex, numName) => {
+  let number = Number(
+    floorTableInfo["floorInfo"][floorIndex.floorNameIndex][floorIndex.upDown][
+      floorIndex.stepClass
+    ][floorIndex.stepClassIndex][numName]
+  );
+  return number;
 };
 // 將一數值取小數點下第二位
 export const getDecimal2 = (number) => {

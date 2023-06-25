@@ -27,7 +27,7 @@ function StairPreview() {
     ? (parseInt(stairData.floorTableInfo.floorNumber) + 1) / 2 + 1
     : parseInt(stairData.floorTableInfo.floorNumber) / 2 + 1;
   const printFileName = stairData.stairBasicInfo.caseName + ".pdf";
-  console.log(stairData);
+  // console.log(stairData);
   //下載loading畫面
   const capooList = useMemo(() => {
     return [<Capoo />, <BlackCapoo />, <Chicken />, <TrumpetChicken />];

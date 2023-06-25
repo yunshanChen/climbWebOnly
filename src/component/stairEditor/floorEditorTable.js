@@ -11,6 +11,7 @@ function FloorEditorTable(props) {
   floorDownIndex.upDown = "floorDownStep";
   let floorEditorTableUp = (
     <FloorEditorTableHalf
+      mode={props.mode}
       stepNumber={props.floorUpStep.stepNumber}
       firstStepInfo={props.floorUpStep.firstStepInfo}
       otherStepInfo={props.floorUpStep.otherStepInfo}
@@ -26,6 +27,7 @@ function FloorEditorTable(props) {
   } else {
     floorEditorTableDown = (
       <FloorEditorTableHalf
+        mode={props.mode}
         stepNumber={props.floorDownStep.stepNumber}
         firstStepInfo={props.floorDownStep.firstStepInfo}
         otherStepInfo={props.floorDownStep.otherStepInfo}
@@ -76,6 +78,7 @@ function FloorEditorTable(props) {
             </th>
             <th scope="col" className="step-depth">
               <span className="table-title">級深</span>
+              <span className="table-title">(公分)</span>
             </th>
           </tr>
         </thead>

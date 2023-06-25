@@ -83,8 +83,33 @@
   border-bottom: 1px solid var(--border-divider);
 }
 /* floor-editor */
+.floor-editor .buttons {
+  display: flex;
+}
+/* mode-button */
+.floor-editor .mode-button .btn-to-height {
+  border: 1px solid var(--btn-blue);
+  background-color: #fff;
+  color: var(--btn-blue);
+}
+.floor-editor .mode-button .btn-to-height:hover {
+  background-color: var(--btn-blue-hover);
+  color: #fff;
+  cursor: pointer;
+}
+.floor-editor .mode-button .btn-to-hypotenuse {
+  border: 1px solid var(--btn-green);
+  background-color: #fff;
+  color: var(--btn-green);
+}
+.floor-editor .mode-button .btn-to-hypotenuse:hover {
+  background-color: var(--btn-green-hover);
+  color: #fff;
+  cursor: pointer;
+}
 /* special-floor-buttons */
 .floor-editor .special-floor-buttons {
+  margin-left: auto;
   display: flex;
   justify-content: flex-end;
 }

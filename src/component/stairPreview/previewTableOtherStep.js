@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import React from "react";
 
 function PreviewTableOtherStep(props) {
@@ -130,9 +131,15 @@ function valueToDeciaml2(value) {
       value = Math.round(value * 100) / 100;
       //取出小數點後字串
       let afterDecimalStr = value.toString().split(".")[1];
-      if (afterDecimalStr.length === 1) {
-        //如果小數點後字串只有一位 ex. 20.5 -> 20.50
-        value += "0";
+      if (afterDecimalStr) {
+        //如果字串有東西
+        if (afterDecimalStr.length === 1) {
+          //如果小數點後字串只有一位 ex. 20.5 -> 20.50
+          value += "0";
+        }
+      } else {
+        //剛好被整除的話(.00)
+        value += ".00";
       }
     } else {
       //沒有小數點，補０

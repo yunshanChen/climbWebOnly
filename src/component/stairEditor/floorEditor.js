@@ -17,6 +17,7 @@ function FloorEditor(props) {
     let floorIndex = { floorNameIndex: i };
     floorTables.push(
       <FloorEditorTable
+        mode={props.floorTableInfo.mode}
         floorName={nowFloor.floorName}
         floorUpStep={nowFloor.floorUpStep}
         floorDownStep={nowFloor.floorDownStep}
@@ -32,22 +33,49 @@ function FloorEditor(props) {
 
   return (
     <div className="floor-editor">
-      <div className={specialFloorButtonsClass}>
-        <button
-          type="button"
-          className={props.floorTableInfo.specialFloor.haveSpecialFloorClass}
-          onClick={() => props.handleSpecialFloorClick(true)}
-        >
-          有1.5樓
-        </button>
-        <button
-          type="button"
-          className={props.floorTableInfo.specialFloor.noSpecialFloor}
-          onClick={() => props.handleSpecialFloorClick(false)}
-        >
-          沒有1.5樓
-        </button>
+      <div className="buttons">
+        <div className="mode-button">
+          <button
+            type="button"
+            className={
+              props.floorTableInfo.mode === "deep"
+                ? "btn-to-hypotenuse"
+                : "none"
+            }
+            onClick={() => props.handleModeClick("hypotenuse")}
+          >
+            切換為斜邊長模式
+          </button>
+          <button
+            type="button"
+            className={
+              props.floorTableInfo.mode === "hypotenuse"
+                ? "btn-to-height"
+                : "none"
+            }
+            onClick={() => props.handleModeClick("deep")}
+          >
+            切換為級深模式
+          </button>
+        </div>
+        <div className={specialFloorButtonsClass}>
+          <button
+            type="button"
+            className={props.floorTableInfo.specialFloor.haveSpecialFloorClass}
+            onClick={() => props.handleSpecialFloorClick(true)}
+          >
+            有1.5樓
+          </button>
+          <button
+            type="button"
+            className={props.floorTableInfo.specialFloor.noSpecialFloor}
+            onClick={() => props.handleSpecialFloorClick(false)}
+          >
+            沒有1.5樓
+          </button>
+        </div>
       </div>
+
       <div className="tables">{floorTables}</div>
       <div className="floor-editor-add">
         <button
