@@ -8,6 +8,8 @@ import {
   getAngleByDeep,
   getAngleByHypotenuse,
   getTriangleNumber,
+  initFloorTableInfo,
+  initFloorHalfStep,
 } from "../component/caculate";
 import "../css/stairEditor.css";
 
@@ -23,87 +25,14 @@ function StairEditor() {
     // 新北市ＯＯ區ＯＯ路123巷45弄78號3樓之9
   });
   // floorTableInfo 預設：沒有樓層, 斜邊長模式
-  const [floorTableInfo, setFloorTableInfo] = useState({
-    floorNumber: "",
-    mode: "hypotenuse",
-    specialFloor: {
-      haveSpecialFloor: false,
-      haveSpecialFloorClass: "have-special-floor",
-      noSpecialFloor: "no-special-floor none",
-    },
-    floorInfo: [],
-  });
+  const [floorTableInfo, setFloorTableInfo] = useState(
+    structuredClone(initFloorTableInfo)
+  );
   // 預設一層樓
   let aFloor = {
     floorName: "1F ↹ 2F",
-    floorUpStep: {
-      stepNumber: 3,
-      firstStepInfo: [
-        {
-          stepName: "1",
-          stepWidth: "",
-          stepHeight: "",
-          isStepHeightOver: false,
-        },
-      ],
-      otherStepInfo: [
-        {
-          stepName: "2",
-          stepHeight: "",
-          stepDeep: "",
-          stepHypotenuse: "",
-          stepAngle: "",
-          isStepHeightOver: false,
-          isStepHypotenuseOver: false,
-          isStepAngleOver: false,
-        },
-        {
-          stepName: "3",
-          stepHeight: "",
-          stepDeep: "",
-          stepHypotenuse: "",
-          stepAngle: "",
-          isStepHeightOver: false,
-          isStepHypotenuseOver: false,
-          isStepAngleOver: false,
-        },
-      ],
-      turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-    },
-    floorDownStep: {
-      stepNumber: 3,
-      firstStepInfo: [
-        {
-          stepName: "1",
-          stepWidth: "",
-          stepHeight: "",
-          isStepHeightOver: false,
-        },
-      ],
-      otherStepInfo: [
-        {
-          stepName: "2",
-          stepHeight: "",
-          stepDeep: "",
-          stepHypotenuse: "",
-          stepAngle: "",
-          isStepHeightOver: false,
-          isStepHypotenuseOver: false,
-          isStepAngleOver: false,
-        },
-        {
-          stepName: "3",
-          stepHeight: "",
-          stepDeep: "",
-          stepHypotenuse: "",
-          stepAngle: "",
-          isStepHeightOver: false,
-          isStepHypotenuseOver: false,
-          isStepAngleOver: false,
-        },
-      ],
-      turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-    },
+    floorUpStep: structuredClone(initFloorHalfStep),
+    floorDownStep: structuredClone(initFloorHalfStep),
   };
   // 其他問題
   const [otherQuestionInfo, setOtherQuestionInfo] = useState({
@@ -202,38 +131,7 @@ function StairEditor() {
       //調整樓層表格
       let specialFloor = {
         floorName: "1.5F ↹ 2F",
-        floorUpStep: {
-          stepNumber: 3,
-          firstStepInfo: [
-            {
-              stepName: "1",
-              stepWidth: "",
-              stepHeight: "",
-              isStepHeightOver: false,
-            },
-          ],
-          otherStepInfo: [
-            {
-              stepName: "2",
-              stepHeight: "",
-              stepHypotenuse: "",
-              stepAngle: "",
-              isStepHeightOver: false,
-              isStepHypotenuseOver: false,
-              isStepAngleOver: false,
-            },
-            {
-              stepName: "3",
-              stepHeight: "",
-              stepHypotenuse: "",
-              stepAngle: "",
-              isStepHeightOver: false,
-              isStepHypotenuseOver: false,
-              isStepAngleOver: false,
-            },
-          ],
-          turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
-        },
+        floorUpStep: structuredClone(initFloorHalfStep),
       };
       newFloorTableInfo.floorInfo[0].floorName = "1F ↹ 1.5F";
       //新增特殊樓層1.5~2
@@ -268,11 +166,50 @@ function StairEditor() {
   // floorTableInfo -> 樓梯表格資料onchange，角度、顏色、階數
   function handleTableChange(e, floorIndex) {
     // console.log(floorIndex);
-    //收到的值取到小數點下一位
-    let value = Math.round(Number(e.target.value) * 10) / 10;
-    // console.log(typeof value + value);
     // 複製原有的資料
     const newFloorTableInfo = structuredClone(floorTableInfo);
+    //判斷小數點輸入
+    //point若為-1，表示沒有小數點
+    //第一個小數點的位置
+    const firstPoint = e.target.value.indexOf(".");
+    //最後一個小數點的位置
+    const LastPoint = e.target.value.lastIndexOf(".");
+    let value = 0;
+    // console.log("小數點在的位置", firstPoint, LastPoint);
+    // console.log("字串總長度", e.target.value.length);
+    //如果數值相等，表示是合法的輸入
+    if (firstPoint === LastPoint && !isNaN(e.target.value)) {
+      // console.log("合法的輸入");
+      //如果小數點是最後一位（最新輸入的項目）以下判斷全部跳過
+      if (firstPoint === e.target.value.length - 1) {
+        // console.log("有小數點而且跟字串長度相同！");
+        //直接將資料寫入
+        value = e.target.value;
+        newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex][
+          floorIndex.upDown
+        ][floorIndex.stepClass][floorIndex.stepClassIndex][
+          floorIndex.stepValueName
+        ] = value;
+        setFloorTableInfo(newFloorTableInfo);
+        return;
+      } else {
+        // console.log("收到的值取到小數點下一位");
+        //收到的值取到小數點下一位
+        value = Math.round(Number(e.target.value) * 10) / 10;
+      }
+    } else {
+      // console.log("不合法的輸入");
+      //不合法的輸入則刪除最後一個字元，不做判斷
+      value = e.target.value.slice(0, -1);
+      // 修改為新的資料
+      newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex][
+        floorIndex.upDown
+      ][floorIndex.stepClass][floorIndex.stepClassIndex][
+        floorIndex.stepValueName
+      ] = value;
+      setFloorTableInfo(newFloorTableInfo);
+      return;
+    }
     // 所有的onchange都至少要重新寫入一次資料
     // 修改為新的資料
     newFloorTableInfo["floorInfo"][floorIndex.floorNameIndex][
@@ -391,7 +328,7 @@ function StairEditor() {
     }
 
     //其他階自動開階
-    //如果目前位置是[其他階]的[最後一階]，且onchange的值(高或斜邊長)不為""
+    //如果目前位置是[其他階]的[最後一階]，且onchange的值(高或斜邊長或深)不為""
     if (
       floorIndex.stepClass === "otherStepInfo" &&
       floorIndex.stepClassIndex + 1 ===
@@ -469,6 +406,7 @@ function StairEditor() {
           ][floorIndex.stepClass].push({
             stepName: newStepName.toString(),
             stepHeight: "",
+            stepDeep: "",
             stepHypotenuse: "",
             stepAngle: "",
             isStepHeightOver: false,
@@ -764,15 +702,7 @@ function StairEditor() {
       address: "",
     });
     // floorTableInfo 預設：沒有樓層
-    setFloorTableInfo({
-      floorNumber: "",
-      specialFloor: {
-        haveSpecialFloor: false,
-        haveSpecialFloorClass: "have-special-floor",
-        noSpecialFloor: "no-special-floor none",
-      },
-      floorInfo: [],
-    });
+    setFloorTableInfo(structuredClone(initFloorTableInfo));
     // 其他問題
     setOtherQuestionInfo({
       stepRounded: false,

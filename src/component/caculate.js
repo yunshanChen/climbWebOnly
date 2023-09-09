@@ -174,7 +174,7 @@ const climberRentList = [
     businessForMonth: "無",
   },
 ];
-
+//取得此階梯的特性
 const getStairFeature = (stairData) => {
   const floorInfo = stairData.floorTableInfo.floorInfo;
   const otherQ = stairData.otherQuestionInfo;
@@ -281,7 +281,7 @@ const getStairFeature = (stairData) => {
   console.log(stairFeature);
   return stairFeature;
 };
-
+//根據機型判斷各項條件，取得適用爬梯機的id
 const getClimber = (stairFeature) => {
   const suitClimberList = [];
   for (let i = 0; i < climberLimit.length; i++) {
@@ -399,7 +399,7 @@ export const getSuitableClimber = (stairData) => {
     //如果沒有適用的爬梯機
     suitableClimbers.push(climberRentList[climberRentList.length - 1]);
   }
-  return suitableClimbers;
+  return [stairFeature, suitableClimbers];
 };
 
 /////計算該階的傾角
@@ -441,4 +441,51 @@ export const getDecimal2 = (number) => {
 // 將一數值取最接近的0.5或0，類似四捨五入(向下為主,ex 1.75->1.5)
 const roundToHalf = (number) => {
   return Math.round(number * 2) / 2;
+};
+
+// 初始化的樓梯表單
+export const initFloorTableInfo = {
+  floorNumber: "",
+  mode: "hypotenuse",
+  specialFloor: {
+    haveSpecialFloor: false,
+    haveSpecialFloorClass: "have-special-floor",
+    noSpecialFloor: "no-special-floor none",
+  },
+  floorInfo: [],
+};
+// 初始化的半層樓
+export const initFloorHalfStep = {
+  stepNumber: 3,
+  firstStepInfo: [
+    {
+      stepName: "1",
+      stepWidth: "",
+      stepHeight: "",
+      isStepHeightOver: false,
+    },
+  ],
+  otherStepInfo: [
+    {
+      stepName: "2",
+      stepHeight: "",
+      stepDeep: "",
+      stepHypotenuse: "",
+      stepAngle: "",
+      isStepHeightOver: false,
+      isStepHypotenuseOver: false,
+      isStepAngleOver: false,
+    },
+    {
+      stepName: "3",
+      stepHeight: "",
+      stepDeep: "",
+      stepHypotenuse: "",
+      stepAngle: "",
+      isStepHeightOver: false,
+      isStepHypotenuseOver: false,
+      isStepAngleOver: false,
+    },
+  ],
+  turnPlatform: [{ g1: "", g2: "", g3g4: "", g3: "", g4: "" }],
 };

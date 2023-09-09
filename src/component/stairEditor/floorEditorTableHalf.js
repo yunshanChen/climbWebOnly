@@ -27,16 +27,12 @@ function FloorEditorTableHalf(props) {
       index.stepValueName;
     return id;
   }
-  function handleOnKeyDown(e) {
-    if (e.keyCode === 9) {
-      e.preventDefault();
-    }
-  }
+
+  //處理跳格
   function handleOnKeyUp(e, index) {
-    // e.preventDefault();
+    e.preventDefault();
     // keyCode=9(tab)
-    // console.log(e.keyCode);
-    if (e.keyCode === 9 || e.key === "Enter") {
+    if (e.key === "Enter") {
       //第一階
       if (index.stepClass === "firstStepInfo") {
         if (index.stepValueName === "stepWidth") {
@@ -50,12 +46,23 @@ function FloorEditorTableHalf(props) {
             nextFocus.focus();
           }
         } else if (index.stepValueName === "stepHeight") {
-          //如果是級高，focus到下一階的斜邊長
-          //複製一份做為要focus的index
-          let nextIndex = structuredClone(index);
-          nextIndex.stepValueName = "stepHypotenuse";
-          nextIndex.stepClass = "otherStepInfo";
-          let nextFocus = document.getElementById(indexToId(nextIndex));
+          let nextFocus = null;
+          //如果是級高，根據mode決定要focus到「斜邊長」還是「深度」
+          if (props.mode === "deep") {
+            //深度模式，focus到下一階的深度
+            //複製一份做為要focus的index
+            let nextIndex = structuredClone(index);
+            nextIndex.stepValueName = "stepDeep";
+            nextIndex.stepClass = "otherStepInfo";
+            nextFocus = document.getElementById(indexToId(nextIndex));
+          } else {
+            //斜邊長模式，focus到下一階的斜邊長
+            //複製一份做為要focus的index
+            let nextIndex = structuredClone(index);
+            nextIndex.stepValueName = "stepHypotenuse";
+            nextIndex.stepClass = "otherStepInfo";
+            nextFocus = document.getElementById(indexToId(nextIndex));
+          }
           //有抓到這個input才focus
           if (nextFocus !== null) {
             nextFocus.focus();
@@ -73,12 +80,32 @@ function FloorEditorTableHalf(props) {
           if (nextFocus !== null) {
             nextFocus.focus();
           }
-        } else if (index.stepValueName === "stepHeight") {
-          //如果是高，focus到下一階的斜邊長
+        } else if (index.stepValueName === "stepDeep") {
+          //如果是深度，focus到同一階的高
+          //複製一份做為要focus的index
           let nextIndex = structuredClone(index);
-          nextIndex.stepValueName = "stepHypotenuse";
-          nextIndex.stepClassIndex += 1;
+          nextIndex.stepValueName = "stepHeight";
           let nextFocus = document.getElementById(indexToId(nextIndex));
+          //有抓到這個input才focus
+          if (nextFocus !== null) {
+            nextFocus.focus();
+          }
+        } else if (index.stepValueName === "stepHeight") {
+          let nextFocus = null;
+          //如果是高，根據mode決定要focus到「斜邊長」還是「深度」
+          if (props.mode === "deep") {
+            //深度模式，focus到下一階的深度
+            let nextIndex = structuredClone(index);
+            nextIndex.stepValueName = "stepDeep";
+            nextIndex.stepClassIndex += 1;
+            nextFocus = document.getElementById(indexToId(nextIndex));
+          } else {
+            //斜邊長模式，focus到下一階的斜邊長
+            let nextIndex = structuredClone(index);
+            nextIndex.stepValueName = "stepHypotenuse";
+            nextIndex.stepClassIndex += 1;
+            nextFocus = document.getElementById(indexToId(nextIndex));
+          }
           //有抓到這個input才focus
           if (nextFocus !== null) {
             nextFocus.focus();
@@ -117,7 +144,6 @@ function FloorEditorTableHalf(props) {
       stepNumber={stepNumber}
       firstStepInfo={props.firstStepInfo[0]}
       handleChange={props.handleChange}
-      handleOnKeyDown={handleOnKeyDown}
       handleOnKeyUp={handleOnKeyUp}
       floorIndex={firstStepIndex}
       indexToId={indexToId}
@@ -137,7 +163,6 @@ function FloorEditorTableHalf(props) {
         stepInfo={props.otherStepInfo[i]}
         floorIndex={otherStepIndex}
         handleChange={props.handleChange}
-        handleOnKeyDown={handleOnKeyDown}
         handleOnKeyUp={handleOnKeyUp}
         indexToId={indexToId}
         key={i}
@@ -153,7 +178,6 @@ function FloorEditorTableHalf(props) {
         turnPlatform={props.turnPlatform}
         floorIndex={turnPlatformIndex}
         handleChange={props.handleChange}
-        handleOnKeyDown={handleOnKeyDown}
         handleOnKeyUp={handleOnKeyUp}
         indexToId={indexToId}
       />
@@ -176,12 +200,12 @@ function FloorTableStepFirst(props) {
       <td rowSpan={props.stepNumber}>
         <div className="input-group-table">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             placeholder="1"
             id={props.indexToId(stepWidthIndex)}
             value={props.firstStepInfo.stepWidth}
             onChange={(e) => props.handleChange(e, stepWidthIndex)}
-            onKeyDown={(e) => props.handleOnKeyDown(e, stepWidthIndex)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepWidthIndex)}
           />
         </div>
@@ -189,12 +213,12 @@ function FloorTableStepFirst(props) {
       <td>
         <div className="input-group-table">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             placeholder="2"
             id={props.indexToId(stepHeightIndex)}
             value={props.firstStepInfo.stepHeight}
             onChange={(e) => props.handleChange(e, stepHeightIndex)}
-            onKeyDown={(e) => props.handleOnKeyDown(e)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepHeightIndex)}
             style={{ color: props.firstStepInfo.isStepHeightOver ? "red" : "" }}
           />
@@ -234,12 +258,12 @@ function FloorTableStepOther(props) {
     stepDeepDiv = (
       <div className="input-group-table">
         <input
-          type="number"
-          placeholder="級深測試"
+          type="text"
+          inputMode="decimal"
+          placeholder="3"
           id={props.indexToId(stepDeepIndex)}
           value={props.stepInfo.stepDeep}
           onChange={(e) => props.handleChange(e, stepDeepIndex)}
-          onKeyDown={(e) => props.handleOnKeyDown(e)}
           onKeyUp={(e) => props.handleOnKeyUp(e, stepDeepIndex)}
         />
       </div>
@@ -254,12 +278,12 @@ function FloorTableStepOther(props) {
     stepHypotenuseDiv = (
       <div className="input-group-table">
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
           placeholder="3"
           id={props.indexToId(stepHypotenuseIndex)}
           value={props.stepInfo.stepHypotenuse}
           onChange={(e) => props.handleChange(e, stepHypotenuseIndex)}
-          onKeyDown={(e) => props.handleOnKeyDown(e)}
           onKeyUp={(e) => props.handleOnKeyUp(e, stepHypotenuseIndex)}
           style={{
             backgroundColor: props.stepInfo.isStepHypotenuseOver
@@ -276,12 +300,12 @@ function FloorTableStepOther(props) {
       <td>
         <div className="input-group-table">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             placeholder="4"
             id={props.indexToId(stepHeightIndex)}
             value={props.stepInfo.stepHeight}
             onChange={(e) => props.handleChange(e, stepHeightIndex)}
-            onKeyDown={(e) => props.handleOnKeyDown(e)}
             onKeyUp={(e) => props.handleOnKeyUp(e, stepHeightIndex)}
             style={{
               backgroundColor: props.stepInfo.isStepHeightOver
@@ -333,12 +357,12 @@ function TurnPlatform(props) {
         <td>
           <div className="input-group-table">
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               placeholder="108"
               id={props.indexToId(g1Index)}
               value={props.turnPlatform[0].g1}
               onChange={(e) => props.handleChange(e, g1Index)}
-              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g1Index)}
             />
           </div>
@@ -347,11 +371,11 @@ function TurnPlatform(props) {
           <div className="input-group-table">
             <input
               type="number"
+              inputMode="decimal"
               placeholder="107"
               id={props.indexToId(g2Index)}
               value={props.turnPlatform[0].g2}
               onChange={(e) => props.handleChange(e, g2Index)}
-              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onKeyUp={(e) => props.handleOnKeyUp(e, g2Index)}
             />
           </div>
@@ -359,7 +383,8 @@ function TurnPlatform(props) {
         <td>
           <div className="input-group-table">
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               placeholder="202.5"
               id={props.indexToId(g3g4Index)}
               value={props.turnPlatform[0].g3g4}
@@ -371,6 +396,7 @@ function TurnPlatform(props) {
           <div className="input-group-table">
             <input
               type="number"
+              inputMode="decimal"
               placeholder=""
               id={props.indexToId(g3Index)}
               value={props.turnPlatform[0].g3}
@@ -381,11 +407,11 @@ function TurnPlatform(props) {
         <td>
           <div className="input-group-table">
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               placeholder=""
               id={props.indexToId(g4Index)}
               value={props.turnPlatform[0].g4}
-              onKeyDown={(e) => props.handleOnKeyDown(e)}
               onChange={(e) => props.handleChange(e, g4Index)}
             />
           </div>

@@ -41,6 +41,23 @@ section.print {
   cursor: pointer;
 }
 
+/* section : stair-caculate-info */
+.stair-caculate-info {
+  padding: 5px 10px;
+  border-radius: 0.357rem;
+  margin-bottom: 10px;
+  background-color: var(--border-gray);
+  color: #000;
+  display: inline-block;
+}
+.stair-caculate-info p {
+  font-size: 20px;
+  font-weight: 700;
+}
+.stair-caculate-info div {
+  font-size: 18px;
+}
+
 /* section : stair-preview */
 section.stair-preview {
   border: 2px solid var(--border-gray); /* border: 1px solid var(--border-gray); */

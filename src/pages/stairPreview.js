@@ -38,7 +38,7 @@ function StairPreview() {
   const [isDownloading, setIsDownloading] = useState(false);
 
   //機型判斷
-  const suitableClimbers = getSuitableClimber(stairData);
+  const [stairFeature, suitableClimbers] = getSuitableClimber(stairData);
 
   return (
     <main className="main-stair-preview">
@@ -58,6 +58,19 @@ function StairPreview() {
         >
           生成PDF檔
         </button>
+      </section>
+      <section className="stair-caculate-info">
+        <p>樓梯資訊：</p>
+        <div>最小級寬：{stairFeature.minWidth}</div>
+        <div>最大第一階級高：{stairFeature.maxFirstHeight}</div>
+        <div>最大級高：{stairFeature.maxHeight}</div>
+        <div>最大傾角：{stairFeature.maxAngle}</div>
+        <div>最大相鄰二斜邊長：{stairFeature.maxTwoHypotenuse}</div>
+        {/* <div>最小G1：{stairFeature.minG1}</div>
+        <div>最小G2：{stairFeature.minG2}</div>
+        <div>最小G3G4：{stairFeature.minG3G4}</div>
+        <div>最小G3：{stairFeature.minG3}</div>
+        <div>最小G4：{stairFeature.minG4}</div> */}
       </section>
       <PrintPDFInfo
         stairBasicInfo={stairData.stairBasicInfo}
