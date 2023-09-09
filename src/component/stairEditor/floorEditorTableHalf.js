@@ -35,11 +35,8 @@ function FloorEditorTableHalf(props) {
   function handleOnKeyUp(e, index) {
     // e.preventDefault();
     // keyCode=9(tab)
-    /////////samsung手機上的數字鍵盤「下一步」
-    /////////無法被監聽(handleOnKeyDown, handleOnKeyUp)到
     // console.log(e.keyCode);
-    if (e.keyCode === 9) {
-      // if (e.key === "Enter") {
+    if (e.keyCode === 9 || e.key === "Enter") {
       //第一階
       if (index.stepClass === "firstStepInfo") {
         if (index.stepValueName === "stepWidth") {
