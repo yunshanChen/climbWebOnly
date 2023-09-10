@@ -179,6 +179,7 @@ const getStairFeature = (stairData) => {
   const floorInfo = stairData.floorTableInfo.floorInfo;
   const otherQ = stairData.otherQuestionInfo;
   //各項指標數值 列表
+  const deepList = [];
   const widthList = [];
   const firstHeightList = [];
   const heightList = [];
@@ -201,6 +202,7 @@ const getStairFeature = (stairData) => {
     for (let j = 0; j < floorInfo[i].floorUpStep.otherStepInfo.length; j++) {
       const upHeight = floorInfo[i].floorUpStep.otherStepInfo[j].stepHeight;
       const upAngle = floorInfo[i].floorUpStep.otherStepInfo[j].stepAngle;
+      const upDeep = floorInfo[i].floorUpStep.otherStepInfo[j].stepDeep;
       let upTwoHypotenuse = 0;
       if (j > 0) {
         upTwoHypotenuse =
@@ -211,6 +213,7 @@ const getStairFeature = (stairData) => {
       }
       if (upHeight) heightList.push(upHeight);
       if (upAngle) angleList.push(upAngle);
+      if (upDeep) deepList.push(upDeep);
       if (upTwoHypotenuse) twoHypotenuseList.push(upTwoHypotenuse);
     }
     //迴轉平台
@@ -238,6 +241,7 @@ const getStairFeature = (stairData) => {
         const downHeight =
           floorInfo[i].floorDownStep.otherStepInfo[j].stepHeight;
         const downAngle = floorInfo[i].floorDownStep.otherStepInfo[j].stepAngle;
+        const downDeep = floorInfo[i].floorDownStep.otherStepInfo[j].stepDeep;
         let downTwoHypotenuse = 0;
         if (j > 0) {
           downTwoHypotenuse =
@@ -250,6 +254,7 @@ const getStairFeature = (stairData) => {
         }
         if (downHeight) heightList.push(downHeight);
         if (downAngle) angleList.push(downAngle);
+        if (downDeep) deepList.push(downDeep);
         if (downTwoHypotenuse) twoHypotenuseList.push(downTwoHypotenuse);
       }
       //迴轉平台
@@ -263,10 +268,16 @@ const getStairFeature = (stairData) => {
   }
   //取得目前樓梯的各項特性
   const stairFeature = {
+    minDeep: Math.min(...deepList),
+    maxDeep: Math.max(...deepList),
     minWidth: Math.min(...widthList),
+    minFirstHeight: Math.min(...firstHeightList),
     maxFirstHeight: Math.max(...firstHeightList),
+    minHeight: Math.min(...firstHeightList.concat(heightList)),
     maxHeight: Math.max(...firstHeightList.concat(heightList)),
+    minAngle: Math.min(...angleList),
     maxAngle: Math.max(...angleList),
+    minTwoHypotenuse: Math.min(...twoHypotenuseList),
     maxTwoHypotenuse: Math.max(...twoHypotenuseList),
     minG1: Math.min(...g1List),
     minG2: Math.min(...g2List),

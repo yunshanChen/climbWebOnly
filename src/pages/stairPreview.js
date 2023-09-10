@@ -60,17 +60,24 @@ function StairPreview() {
         </button>
       </section>
       <section className="stair-caculate-info">
-        <p>樓梯資訊：</p>
-        <div>最小級寬：{stairFeature.minWidth}</div>
-        <div>最大第一階級高：{stairFeature.maxFirstHeight}</div>
-        <div>最大級高：{stairFeature.maxHeight}</div>
-        <div>最大傾角：{stairFeature.maxAngle}</div>
-        <div>最大相鄰二斜邊長：{stairFeature.maxTwoHypotenuse}</div>
-        {/* <div>最小G1：{stairFeature.minG1}</div>
-        <div>最小G2：{stairFeature.minG2}</div>
-        <div>最小G3G4：{stairFeature.minG3G4}</div>
-        <div>最小G3：{stairFeature.minG3}</div>
-        <div>最小G4：{stairFeature.minG4}</div> */}
+        <h3>樓梯資訊：</h3>
+        <div>
+          級深：{stairFeature.minDeep}～{stairFeature.maxDeep}（級深模式才有）
+        </div>
+        <div>
+          相鄰二斜邊長：{stairFeature.minTwoHypotenuse}～
+          {stairFeature.maxTwoHypotenuse}
+        </div>
+        <div>
+          級高：{stairFeature.minHeight}～{stairFeature.maxHeight}
+        </div>
+        <div>
+          第一階級高：{stairFeature.minFirstHeight}～
+          {stairFeature.maxFirstHeight}
+        </div>
+        <div>
+          傾角：{stairFeature.minAngle}～{stairFeature.maxAngle}
+        </div>
       </section>
       <PrintPDFInfo
         stairBasicInfo={stairData.stairBasicInfo}
