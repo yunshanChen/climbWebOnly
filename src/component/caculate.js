@@ -420,7 +420,7 @@ export const getAngleByHypotenuse = (height, hypotenuse) => {
   let angle = (Math.asin(height / hypotenuse) * 180) / Math.PI;
   return getDecimal2(angle);
 };
-// 根據「級深」計算傾角，回傳傾角
+// 根據「級深」計算傾角，回傳[傾角,斜邊長]
 // 取值方式：{angle, hypotenuse} = getAngleByDeep(height,deep)
 export const getAngleByDeep = (height, deep) => {
   //兩者皆有值再計算

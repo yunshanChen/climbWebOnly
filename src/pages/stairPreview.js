@@ -62,7 +62,8 @@ function StairPreview() {
       <section className="stair-caculate-info">
         <h3>樓梯資訊：</h3>
         <div>
-          級深：{stairFeature.minDeep}～{stairFeature.maxDeep}（級深模式才有）
+          級深：{stairFeature.minDeep}～{stairFeature.maxDeep}
+          （在級深模式下輸入的級深才會列入計算）
         </div>
         <div>
           相鄰二斜邊長：{stairFeature.minTwoHypotenuse}～
