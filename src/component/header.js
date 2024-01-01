@@ -42,6 +42,7 @@ function Header() {
           </Link>
         </h1>
         {navbarList}
+        <div className="version">v2.1</div>
       </nav>
     </header>
   );

@@ -169,7 +169,6 @@ function FloorEditorTableHalf(props) {
       />
     );
   }
-
   return (
     <>
       {floorSteps}

@@ -19,7 +19,7 @@ function StairEditor() {
   // 資料設定 //
   // stairBasicInfo
   const [stairBasicInfo, setStairBasicInfo] = useState({
-    caseName: "",
+    caseName: "小明",
     bodyWeight: "",
     address: "",
     // 新北市ＯＯ區ＯＯ路123巷45弄78號3樓之9
@@ -36,8 +36,8 @@ function StairEditor() {
   };
   // 其他問題
   const [otherQuestionInfo, setOtherQuestionInfo] = useState({
-    stepRounded: false,
-    stepDeep: false,
+    stepRounded: true,
+    stepDeep: true,
     stepSpecial: false,
   });
   useEffect(() => {
@@ -697,7 +697,7 @@ function StairEditor() {
     // 資料設定 //
     // stairBasicInfo
     setStairBasicInfo({
-      caseName: "",
+      caseName: "小明",
       bodyWeight: "",
       address: "",
     });
@@ -705,8 +705,8 @@ function StairEditor() {
     setFloorTableInfo(structuredClone(initFloorTableInfo));
     // 其他問題
     setOtherQuestionInfo({
-      stepRounded: false,
-      stepDeep: false,
+      stepRounded: true,
+      stepDeep: true,
       stepSpecial: false,
     });
   }
