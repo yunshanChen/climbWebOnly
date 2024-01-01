@@ -60,22 +60,28 @@ function FloorEditorTable(props) {
           </tr>
           <tr>
             <th scope="col" className="floor-step"></th>
+            {/* 級寬 */}
             <th scope="col" className="step-width">
               <span className="table-title">級寬</span>
               <span className="table-title">(公分)</span>
             </th>
-            <th scope="col" className="step-height">
-              <span className="table-title">級高</span>
-              <span className="table-title">(公分)</span>
-            </th>
+            {/* 斜邊長 */}
             <th scope="col" className="step-hypotenuse">
               <span className="table-title">斜邊長</span>
               <span className="table-title">(公分)</span>
             </th>
+            {/* 級高 */}
+            <th scope="col" className="step-height">
+              <span className="table-title">級高</span>
+              <span className="table-title">(公分)</span>
+            </th>
+
+            {/* 傾角 */}
             <th scope="col" className="step-inclination">
               <span className="table-title">傾角</span>
               <span className="table-title">(度)</span>
             </th>
+            {/* 級深 */}
             <th scope="col" className="step-depth">
               <span className="table-title">級深</span>
               <span className="table-title">(公分)</span>

@@ -197,6 +197,7 @@ function FloorTableStepFirst(props) {
   return (
     <tr>
       <th scope="row">第1階</th>
+      {/* 級寬 */}
       <td rowSpan={props.stepNumber}>
         <div className="input-group-table">
           <input
@@ -210,6 +211,9 @@ function FloorTableStepFirst(props) {
           />
         </div>
       </td>
+      {/* 第一階斜邊長，固定沒有值 */}
+      <td></td>
+      {/* 第一階級高 */}
       <td>
         <div className="input-group-table">
           <input
@@ -224,8 +228,6 @@ function FloorTableStepFirst(props) {
           />
         </div>
       </td>
-      {/* 第一階斜邊長，固定沒有值 */}
-      <td></td>
       {/* 第一階傾角，固定沒有值 */}
       <td></td>
       {/* <td rowSpan={props.stepNumber}>
@@ -297,6 +299,9 @@ function FloorTableStepOther(props) {
   return (
     <tr>
       <th scope="row">第{props.stepInfo.stepName}階</th>
+      {/* 斜邊長 */}
+      <td>{stepHypotenuseDiv}</td>
+      {/* 級高 */}
       <td>
         <div className="input-group-table">
           <input
@@ -315,8 +320,7 @@ function FloorTableStepOther(props) {
           />
         </div>
       </td>
-      {/* 斜邊長 */}
-      <td>{stepHypotenuseDiv}</td>
+      {/* 傾角 */}
       <td
         style={{
           backgroundColor: props.stepInfo.isStepAngleOver
