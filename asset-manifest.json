@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/climbWebOnly/static/css/main.6c22a6a1.css",
+    "main.css": "/climbWebOnly/static/css/main.a1c2420d.css",
     "main.js": "/climbWebOnly/static/js/main.10a6b7cc.js",
     "static/js/498.a56d48d6.chunk.js": "/climbWebOnly/static/js/498.a56d48d6.chunk.js",
     "static/js/703.feab3ca1.chunk.js": "/climbWebOnly/static/js/703.feab3ca1.chunk.js",
@@ -8,7 +8,7 @@
     "static/js/787.2f7e9a95.chunk.js": "/climbWebOnly/static/js/787.2f7e9a95.chunk.js",
     "service-worker.js": "/climbWebOnly/service-worker.js",
     "index.html": "/climbWebOnly/index.html",
-    "main.6c22a6a1.css.map": "/climbWebOnly/static/css/main.6c22a6a1.css.map",
+    "main.a1c2420d.css.map": "/climbWebOnly/static/css/main.a1c2420d.css.map",
     "main.10a6b7cc.js.map": "/climbWebOnly/static/js/main.10a6b7cc.js.map",
     "498.a56d48d6.chunk.js.map": "/climbWebOnly/static/js/498.a56d48d6.chunk.js.map",
     "703.feab3ca1.chunk.js.map": "/climbWebOnly/static/js/703.feab3ca1.chunk.js.map",
@@ -16,7 +16,7 @@
     "787.2f7e9a95.chunk.js.map": "/climbWebOnly/static/js/787.2f7e9a95.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6c22a6a1.css",
+    "static/css/main.a1c2420d.css",
     "static/js/main.10a6b7cc.js"
   ]
 }
