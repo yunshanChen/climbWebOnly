@@ -42,7 +42,10 @@ function Header() {
           </Link>
         </h1>
         {navbarList}
-        <div className="version">v2.1</div>
+        <Link to="/clock" className="nav-item">
+          時鐘
+        </Link>
+        <div className="version">v2.2</div>
       </nav>
     </header>
   );

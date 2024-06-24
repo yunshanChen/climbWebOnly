@@ -21,12 +21,11 @@ header .navbar .navbar-list {
   display: flex;
   padding: 0 10px;
 }
-header .navbar .navbar-list .nav-item {
+header .navbar .nav-item {
   padding: 0 10px;
-}
-header .navbar .navbar-list .nav-item a {
   color: #fff;
 }
+
 header .navbar .btn-logout {
   color: #fff;
   background-color: var(--btn-red);
